@@ -39,6 +39,8 @@ This document contains the initial product backlog for the Counseling Appointmen
 
 ## CRC Tables
 
+Each card identifies one of the system's core classes, describes what it is responsible for, and lists the other classes it must interact with to carry out those responsibilities. User story references are included for traceability back to the product backlog. We group them in 3 layers.
+
 ### Actors CRCs
 
 Student, Counselor, Admin: the human roles that interact with the system.

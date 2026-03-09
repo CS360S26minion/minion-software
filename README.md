@@ -37,5 +37,26 @@ This document contains the initial product backlog for the Counseling Appointmen
 <img width="446" height="620" alt="image" src="https://github.com/user-attachments/assets/b7d11172-dcf1-4435-bec2-6fd2d540563e" />
 
 
+## CRC Tables
+
+### Actors CRCs
+
+Student, Counselor, Admin: the human roles that interact with the system.
+
+![Actors CRC](CRC/actors.png)
+
+### Core Domain CRCs
+
+AppointmentSlot, Availability, BookingSystem: the central scheduling logic.
+
+![Core-Domain CRC](CRC/core-domain.png)
+
+### Support Services CRCs
+
+IntakeForm, FeedbackForm, NoShowRecord: features that support the core flow.
+
+![Support-Services CRC](CRC/support-services.png)
+
+
 
 Sc

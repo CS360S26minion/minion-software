@@ -32,3 +32,10 @@ This document contains the initial product backlog for the Counseling Appointmen
 | **US14** | Submit Session Feedback | **As a student**, I want to submit an anonymous post-session feedback form so that I can evaluate the helpfulness of the service. | 3 | Low | No |
 | **US15** | View Admin Analytics | **As an admin**, I want to view aggregate no-show tracking and analytics so that I can identify trends and improve clinic efficiency. | 8 | Medium | No |
 | **US16** | Manage Counselor Profiles | **As an admin**, I want to manage counselor profiles, system access, and roles so that the platform remains secure and up to date. | 3 | Low | No |
+
+### Screenshot of backlog:
+<img width="446" height="620" alt="image" src="https://github.com/user-attachments/assets/b7d11172-dcf1-4435-bec2-6fd2d540563e" />
+
+
+
+Sc

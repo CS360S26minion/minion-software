@@ -62,3 +62,88 @@ IntakeForm, FeedbackForm, NoShowRecord: features that support the core flow.
 
 
 Sc
+
+
+# 🎬 Project Storyboard & User Journey
+
+This section demonstrates the user flow and transitions between different states of the UI, covering all **16 User Stories**.
+
+---
+
+### Step 1: Student Dashboard (US12)
+*   **Initial State:** User logs in to the mobile app.
+*   **Action:** User views upcoming sessions and history.
+*   **Transition:** User clicks "Schedule New Session" to find a guide.
+
+<img src="UI/student_page.png" width="300" alt="Student Page" />
+
+---
+
+### Step 2: Counselor Discovery (US01)
+*   **Initial State:** Search directory of available counselors.
+*   **Action:** User filters by specialty and selects "Dr. Sarah Jenkins".
+*   **Transition:** System loads the counselor's private booking calendar.
+
+<img src="UI/counselor_discovery.png" width="300" alt="Counselor Discovery" />
+
+---
+
+### Step 3: Booking Flow (US02, US03)
+*   **Initial State:** Calendar view with available slots.
+*   **Action:** User selects a date and a 10:30 AM time slot.
+*   **Transition:** State changes to "Data Intake" to collect pre-session info.
+
+<img src="UI/booking_flow.png" width="300" alt="Booking Flow" />
+
+---
+
+### Step 4: Pre-Session Intake (US13)
+*   **Initial State:** Form asking for current mood and goals.
+*   **Action:** User fills out the form and clicks "Confirm & Finish".
+*   **Transition:** Data is recorded, and system triggers confirmation notifications.
+
+<img src="UI/intake_form.png" width="300" alt="Intake Form" />
+
+---
+
+### Step 5: Appointment Management (US04)
+*   **Initial State:** Confirmation/Detail view.
+*   **Action:** User can view active details or choose to Reschedule/Cancel.
+*   **Transition:** User returns to dashboard or modifies the appointment.
+
+<img src="UI/appointment_detail.png" width="300" alt="Appointment Detail" />
+
+---
+
+### Step 6: Session Feedback (US14)
+*   **Initial State:** Post-session reflection screen.
+*   **Action:** User provides a star rating and anonymous comments.
+*   **Transition:** Feedback is stored for admin analytics and quality control.
+
+<img src="UI/feedback_form.png" width="300" alt="Feedback Form" />
+
+---
+
+### Step 7: Counselor Hub (US05, US06, US11)
+*   **Initial State:** Counselor's daily agenda.
+*   **Action:** Counselor toggles availability or marks a "No-Show".
+*   **Transition:** System updates real-time availability for students.
+
+<img src="UI/counselor_hub.png" width="300" alt="Counselor Hub" />
+
+---
+
+### Step 8: Admin Center (US15, US16)
+*   **Initial State:** Clinic overview dashboard.
+*   **Action:** Admin monitors no-show trends and manages staff profiles.
+*   **Transition:** Administrative updates propagate throughout the system.
+
+<img src="UI/admin_center.png" width="300" alt="Admin Center" />
+
+---
+
+### Step 9: System Notifications (US07, US08, US09, US10)
+*   **Result:** Automated emails sent to both Student and Counselor.
+*   **Content:** Confirmation details and 24-hour reminders.
+
+<img src="UI/notification.png" width="300" alt="Notification" />

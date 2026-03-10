@@ -64,9 +64,25 @@ IntakeForm, FeedbackForm, NoShowRecord: features that support the core flow.
 Sc
 
 
+## 🔗 Figma Project
+Access the interactive high-fidelity prototype here:  
+**[Figma Design File](https://www.figma.com/design/hfGdG7uPsVATekhhlydlSo/SE-Project?node-id=0-1&t=TYQRLZJySw3304cT-1)**
+
+---
+
 # 🎬 Project Storyboard & User Journey
 
 This section demonstrates the user flow and transitions between different states of the UI, covering all **16 User Stories**.
+
+### 📱 UI Gallery (Overview)
+
+| Student Dashboard | Counselor Search | Booking Flow |
+| :---: | :---: | :---: |
+| <img src="UI/student_page.png" width="180"> | <img src="UI/counselor_discovery.png" width="180"> | <img src="UI/booking_flow.png" width="180"> |
+| **Intake Form** | **Appt Details** | **Counselor Hub** |
+| <img src="UI/intake_form.png" width="180"> | <img src="UI/appointment_detail.png" width="180"> | <img src="UI/counselor_hub.png" width="180"> |
+| **Admin Center** | **Notifications** | **Feedback Form** |
+| <img src="UI/admin_center.png" width="180"> | <img src="UI/notification.png" width="180"> | <img src="UI/feedback_form.png" width="180"> |
 
 ---
 

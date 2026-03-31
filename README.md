@@ -175,7 +175,7 @@ This section demonstrates the user flow and transitions between different states
 | Duration | 5 minutes |
 | Meeting With | TA |
 
-**Attendees:** Iyan, Aamir, Aslam, Dayyan, Ali, Akhtar, Qayyum, Ahmed, Shaheer Ahmad, Eman Nabeel
+**Attendees:** Iyan Aamir Aslam, Dayyan Ali Akhtar, Qayyum Ahmed, Shaheer Ahmad, Eman Nabeel
 
 **Discussion:**
 The team met with the TA to discuss the initial phase of the Counseling Appointment System project. We went over how to set up our GitHub Organization, repository structure, and Wiki for managing project artifacts. The meeting also covered the basics of building our product backlog, which would later outline the core features of our Counseling Appointment System, designed to streamline session booking between students and counselors.

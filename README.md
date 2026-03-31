@@ -163,3 +163,19 @@ This section demonstrates the user flow and transitions between different states
 *   **Content:** Confirmation details and 24-hour reminders.
 
 <img src="UI/notification.png" width="300" alt="Notification" />
+---
+
+## Meeting Minutes
+
+### Meeting 1 — February 20, 2026
+| Field | Info |
+|-------|------|
+| Date | February 20, 2026 |
+| Time | 7:34 PM – 7:39 PM |
+| Duration | 5 minutes |
+| Meeting With | TA |
+
+**Attendees:** Iyan, Aamir, Aslam, Dayyan, Ali, Akhtar, Qayyum, Ahmed, Shaheer Ahmad, Eman Nabeel
+
+**Discussion:**
+The team met with the TA to discuss the initial phase of the Counseling Appointment System project. We went over how to set up our GitHub Organization, repository structure, and Wiki for managing project artifacts. The meeting also covered the basics of building our product backlog, which would later outline the core features of our Counseling Appointment System, designed to streamline session booking between students and counselors.

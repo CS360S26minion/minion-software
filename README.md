@@ -179,3 +179,31 @@ This section demonstrates the user flow and transitions between different states
 
 **Discussion:**
 The team met with the TA to discuss the initial phase of the Counseling Appointment System project. We went over how to set up our GitHub Organization, repository structure, and Wiki for managing project artifacts. The meeting also covered the basics of building our product backlog, which would later outline the core features of our Counseling Appointment System, designed to streamline session booking between students and counselors.
+
+## Meeting Minutes
+
+### Meeting 2 — March 5, 2026
+| Field | Info |
+|-------|------|
+| Date | March 5, 2026 |
+| Time | 3:00 PM – 3:10 PM |
+| Duration | 10 minutes |
+| Meeting With | TA |
+
+**Attendees:** Iyan Aamir Aslam, Dayyan Ali Akhtar, Qayyum Ahmed, Shaheer Ahmad, Eman Nabeel
+
+**Discussion:**  
+The team met with the TA to discuss the product backlog, the requirements for the first deliverable, and questions related to the CRC tables. The TA reviewed the team’s progress and clarified the structure and purpose of the backlog items and class responsibilities.
+
+### Meeting 3 — March 18, 2026
+| Field | Info |
+|-------|------|
+| Date | March 18, 2026 |
+| Time | 7:25 PM – 7:40 PM |
+| Duration | 15 minutes |
+| Meeting With | TA |
+
+**Attendees:** Iyan Aamir Aslam, Dayyan Ali Akhtar, Qayyum Ahmed, Shaheer Ahmad
+
+**Discussion:**  
+The team met with the TA to present and discuss the CRC tables and the UI gallery. The TA reviewed the class responsibilities, interactions, and the overall UI flow shown in the gallery, and provided feedback on the consistency between the backlog, CRC tables, and prototype screens.## Meeting Minutes

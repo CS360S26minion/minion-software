@@ -207,3 +207,16 @@ The team met with the TA to discuss the product backlog, the requirements for th
 
 **Discussion:**  
 The team met with the TA to present and discuss the CRC tables and the UI gallery. The TA reviewed the class responsibilities, interactions, and the overall UI flow shown in the gallery, and provided feedback on the consistency between the backlog, CRC tables, and prototype screens.## Meeting Minutes
+
+### Meeting 4 — April 1, 2026
+| Field | Info |
+|-------|------|
+| Date | April 1, 2026 |
+| Time | 9:00 PM – 9:30 PM |
+| Duration | 30 minutes |
+| Meeting With | TA |
+
+**Attendees:** Iyan Aamir Aslam, Dayyan Ali Akhtar, Qayyum Ahmed, Shaheer Ahmad, Eman Nabeel  
+
+**Discussion:**  
+The team met with the TA to discuss the second deliverable. The session focused on clarifying requirements and resolving outstanding questions. The team also presented their implementation plan, and the TA provided feedback to ensure alignment with project expectations.

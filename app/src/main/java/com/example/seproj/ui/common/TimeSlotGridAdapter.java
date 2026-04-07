@@ -1,4 +1,4 @@
-﻿package com.example.counselling_system.ui.common;
+package com.example.seproj.ui.common;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,8 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.counselling_system.R;
-import com.example.counselling_system.model.AppointmentSlot;
+import com.example.seproj.R;
+import com.example.seproj.model.AppointmentSlot;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

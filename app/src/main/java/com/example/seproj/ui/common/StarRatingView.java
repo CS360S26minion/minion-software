@@ -1,4 +1,4 @@
-package com.example.counselling_system.ui.common;
+package com.example.seproj.ui.common;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import androidx.annotation.Nullable;
 
-import com.example.counselling_system.R;
+import com.example.seproj.R;
 
 public class StarRatingView extends LinearLayout {
 

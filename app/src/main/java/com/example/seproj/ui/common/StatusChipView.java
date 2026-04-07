@@ -1,4 +1,4 @@
-package com.example.counselling_system.ui.common;
+package com.example.seproj.ui.common;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
-import com.example.counselling_system.R;
+import com.example.seproj.R;
 import com.google.android.material.chip.Chip;
 
 public class StatusChipView extends Chip {

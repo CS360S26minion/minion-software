@@ -1,4 +1,4 @@
-package com.example.counselling_system.ui.common;
+package com.example.seproj.ui.common;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 
-import com.example.counselling_system.R;
+import com.example.seproj.R;
 
 public class AvatarView extends AppCompatImageView {
     private String initials = "";

@@ -1,4 +1,4 @@
-﻿package com.example.counselling_system.ui.common;
+package com.example.seproj.ui.common;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.counselling_system.R;
+import com.example.seproj.R;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <com.example.counselling_system.ui.common.AvatarView
+        <com.example.seproj.ui.common.AvatarView
             android:id="@+id/ivAvatar"
             android:layout_width="56dp"
             android:layout_height="56dp"
@@ -46,7 +46,7 @@
             <!-- Chips populated dynamically, but keeping one for preview if tools allows -->
         </com.google.android.material.chip.ChipGroup>
 
-        <com.example.counselling_system.ui.common.StarRatingView
+        <com.example.seproj.ui.common.StarRatingView
             android:id="@+id/starRating"
             android:layout_width="wrap_content"
             android:layout_height="16dp"

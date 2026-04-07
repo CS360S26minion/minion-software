@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    style="@style/Widget.Counselling.Card"
+    android:layout_marginBottom="@dimen/spacing_medium">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="14dp">
+
+        <com.example.seproj.ui.common.AvatarView
+            android:id="@+id/ivCounselorAvatar"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/bg_avatar_placeholder" />
+
+        <TextView
+            android:id="@+id/tvCounselorName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:textAppearance="@style/TextAppearance.Counselling.SectionHeader"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/ivCounselorAvatar"
+            app:layout_constraintTop_toTopOf="@id/ivCounselorAvatar"
+            app:layout_constraintEnd_toStartOf="@id/chipStatus"
+            tools:text="Dr. Sarah Jenkins" />
+
+        <TextView
+            android:id="@+id/tvDateTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="2dp"
+            android:textAppearance="@style/TextAppearance.Counselling.Caption"
+            app:layout_constraintStart_toEndOf="@id/ivCounselorAvatar"
+            app:layout_constraintTop_toBottomOf="@id/tvCounselorName"
+            app:layout_constraintEnd_toStartOf="@id/chipStatus"
+            tools:text="Tomorrow, 10:30 AM" />
+
+        <com.example.seproj.ui.common.StatusChipView
+            android:id="@+id/chipStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Confirmed" />
+
+        <Button
+            android:id="@+id/btnViewDetails"
+            style="@style/Widget.Counselling.Button.Ghost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="12sp"
+            android:minHeight="0dp"
+            android:minWidth="0dp"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:text="View Details"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/chipStatus" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

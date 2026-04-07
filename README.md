@@ -244,6 +244,8 @@ The team met with the TA to discuss the second deliverable. The session focused 
 
 ## Part 3 Updated UML Diagrams
 
+![UML Diagram](UI/uml-diagram-p3.png)
+
 ## Part 3 Updated UI Mockups
 
 ## Part 3: The Extra Mile

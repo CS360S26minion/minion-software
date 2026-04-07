@@ -212,6 +212,57 @@ The team met with the TA to present and discuss the CRC tables and the UI galler
 
 ## Part 3 Sprint Planning
 
+This sprint focuses on implementing core functionality for the counseling appointment system, including booking logic, user interfaces, and notification mechanisms. Tasks are distributed based on system layers and complexity to ensure balanced workload and parallel development.
+
+### 👤 Shaheer — Core Transactional Logic (13 pts)
+Responsible for handling critical database operations and ensuring system consistency. This includes managing concurrency to prevent issues such as double-booking.
+
+- **US03: Book Time Slot** (8 pts, High Risk)  
+- **US04: Cancel or Reschedule Appointment** (5 pts, Medium Risk)
+
+### 👤 Dayyan — Student Discovery & Read Views (7 pts)
+Focuses on student-facing features, including UI components and database queries for browsing available counselors and time slots.
+
+- **US01: View Counselor List** (2 pts, Low Risk)  
+- **US02: View Available Slots** (5 pts, Medium Risk)
+
+### 👤 Qayyum — Counselor State & Dashboards (8 pts)
+Manages counselor-side functionality, including setting availability and viewing scheduled appointments.
+
+- **US05: Set Availability** (5 pts, Medium Risk)  
+- **US06: View Appointments** (3 pts, Low Risk)
+
+### 👤 Ayan — Event-Driven Notifications (6 pts)
+Implements real-time notifications triggered by booking and cancellation events.
+
+- **US07: Student Booking Confirmation** (3 pts, Medium Risk)  
+- **US09: Counselor Booking Confirmation** (3 pts, Medium Risk)
+
+### 👤 Eman — Scheduled Background Tasks (10 pts)
+Handles time-based features using background workers to trigger reminders for upcoming appointments.
+
+- **US08: Student Appointment Reminder (24h prior)** (5 pts, High Risk)  
+- **US10: Counselor Appointment Reminder (24h prior)** (5 pts, High Risk)
+
+### 📊 Summary
+
+| Team Member | Responsibility Area                | Story Points |
+|------------|----------------------------------|-------------|
+| Shaheer    | Core Transaction Logic           | 13 pts      |
+| Dayyan     | Student UI & Data Retrieval      | 7 pts       |
+| Qayyum     | Counselor Features & Dashboard   | 8 pts       |
+| Ayan       | Event-Driven Notifications       | 6 pts       |
+| Eman       | Background Scheduling & Reminders| 10 pts      |
+
+**Total Sprint Load: 44 Story Points**
+
+### 🎯 Sprint Goals
+
+- Ensure reliable booking and cancellation logic  
+- Provide intuitive UI for both students and counselors  
+- Deliver real-time and scheduled notification features  
+- Maintain data consistency and prevent conflicts (e.g., double-booking)
+
 ## Part 3 Sprint Reviews
 
 ### Sprint Review 1 — April 1, 2026

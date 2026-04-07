@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_primary">
+
+    <!-- Header Row with Back -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="24dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="8dp">
+
+        <Button
+            android:id="@+id/btnBack"
+            style="@style/Widget.Counselling.Button.Ghost"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:text="←"
+            android:textSize="24sp"
+            android:textColor="@color/text_primary"
+            android:padding="0dp" />
+
+        <TextView
+            android:id="@+id/tvCounselorListTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="12dp"
+            android:text="Find your Guide"
+            android:textColor="@color/text_primary"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnHome"
+            style="@style/Widget.Counselling.Button.Primary"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:paddingLeft="14dp"
+            android:paddingRight="14dp"
+            android:text="Home"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <!-- Subtitle -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="24dp"
+        android:paddingBottom="12dp"
+        android:text="Select a counselor to book a session"
+        android:textColor="@color/text_secondary"
+        android:textSize="13sp" />
+
+    <!-- Progress Bar -->
+    <ProgressBar
+        android:id="@+id/progressBarCounselors"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="32dp"
+        android:visibility="gone" />
+
+    <!-- Empty State -->
+    <TextView
+        android:id="@+id/tvCounselorEmptyState"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:gravity="center"
+        android:text="No counselors found."
+        android:textColor="@color/text_secondary"
+        android:textSize="16sp"
+        android:visibility="gone" />
+
+    <!-- Counselor List -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCounselors"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="8dp"
+        android:clipToPadding="false" />
+
+</LinearLayout>

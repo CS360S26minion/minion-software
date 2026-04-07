@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutErrorBanner"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="@color/status_cancelled"
+    android:padding="@dimen/spacing_medium"
+    android:visibility="gone"
+    android:elevation="6dp">
+
+    <TextView
+        android:id="@+id/tvErrorMessage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textAppearance="@style/TextAppearance.Counselling.Body"
+        android:textColor="@color/on_primary"
+        android:text="An error occurred." />
+
+    <Button
+        android:id="@+id/btnErrorRetry"
+        style="@style/Widget.Counselling.Button.Ghost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/on_primary"
+        android:text="Retry" />
+
+</LinearLayout>

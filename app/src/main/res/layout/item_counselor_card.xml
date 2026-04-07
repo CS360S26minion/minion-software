@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    style="@style/Widget.Counselling.Card"
+    android:layout_marginBottom="16dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <com.example.counselling_system.ui.common.AvatarView
+            android:id="@+id/ivAvatar"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/bg_avatar_placeholder" />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textAppearance="@style/TextAppearance.Counselling.SectionHeader"
+            app:layout_constraintStart_toEndOf="@id/ivAvatar"
+            app:layout_constraintTop_toTopOf="@id/ivAvatar"
+            app:layout_constraintEnd_toStartOf="@id/btnBook"
+            tools:text="Dr. Sarah Jenkins" />
+
+        <!-- Tags / chips are non-clickable display only -->
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/cgSpecialties"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            app:itemSpacing="4dp"
+            app:lineSpacing="4dp"
+            app:layout_constraintStart_toEndOf="@id/ivAvatar"
+            app:layout_constraintTop_toBottomOf="@id/tvName"
+            app:layout_constraintEnd_toEndOf="parent">
+            <!-- Chips populated dynamically, but keeping one for preview if tools allows -->
+        </com.google.android.material.chip.ChipGroup>
+
+        <com.example.counselling_system.ui.common.StarRatingView
+            android:id="@+id/starRating"
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toEndOf="@id/ivAvatar"
+            app:layout_constraintTop_toBottomOf="@id/cgSpecialties" />
+
+        <TextView
+            android:id="@+id/tvRatingText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:textAppearance="@style/TextAppearance.Counselling.Caption"
+            app:layout_constraintStart_toEndOf="@id/starRating"
+            app:layout_constraintBottom_toBottomOf="@id/starRating"
+            app:layout_constraintTop_toTopOf="@id/starRating"
+            tools:text="4.9 (120 reviews)" />
+
+        <Button
+            android:id="@+id/btnBook"
+            style="@style/Widget.Counselling.Button.Primary"
+            android:layout_width="80dp"
+            android:layout_height="36dp"
+            android:minHeight="36dp"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:text="Book"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

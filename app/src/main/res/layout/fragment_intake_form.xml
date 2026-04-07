@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.Counselling.Display"
+            android:text="Pre-Session Intake"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.Counselling.Body"
+            android:textColor="@color/text_secondary"
+            android:text="Your answers will help us better prepare for your session. This is strictly confidential."
+            android:layout_marginBottom="24dp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Counselling.TextInput.Outlined"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="What brings you here today?"
+            app:counterEnabled="true"
+            app:counterMaxLength="500"
+            android:layout_marginBottom="24dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lines="4"
+                android:inputType="textMultiLine"
+                android:gravity="top|start" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.Counselling.SectionHeader"
+            android:text="How are you feeling right now?"
+            android:layout_marginBottom="8dp" />
+
+        <com.google.android.material.slider.Slider
+            android:id="@+id/sliderMood"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:valueFrom="0.0"
+            android:valueTo="10.0"
+            android:stepSize="1.0"
+            app:trackColorActive="@color/primary"
+            app:thumbColor="@color/primary" />
+
+        <TextView
+            android:id="@+id/tvEmojiReaction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="32sp"
+            android:text="😐"
+            android:layout_marginBottom="24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.Counselling.SectionHeader"
+            android:text="Have you seen a counselor before?"
+            android:layout_marginBottom="8dp" />
+
+        <RadioGroup
+            android:id="@+id/rgPriorExperience"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="24dp">
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/rbYes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Yes"
+                android:layout_marginEnd="24dp" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/rbNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No" />
+        </RadioGroup>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Counselling.TextInput.Outlined"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Medications or conditions (optional)"
+            android:layout_marginBottom="24dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lines="3"
+                android:inputType="textMultiLine"
+                android:gravity="top|start" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btnConfirmIntake"
+            style="@style/Widget.Counselling.Button.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/confirm_booking" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

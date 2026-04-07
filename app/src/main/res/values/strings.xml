@@ -1,3 +1,27 @@
 <resources>
-    <string name="app_name">counselling_system</string>
+    <string name="app_name">seproj</string>
+    <!-- Common -->
+    <string name="back">Back</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    
+    <!-- Student Home -->
+    <string name="greeting_morning">Good morning 👋</string>
+    <string name="upcoming_appointments">Upcoming Appointments</string>
+    <string name="quick_stats">Quick Stats</string>
+    
+    <!-- Browse Counselors -->
+    <string name="find_your_guide">Find your Guide</string>
+    <string name="search_counselors_hint">Search counselors…</string>
+    <string name="book">Book</string>
+    
+    <!-- Booking -->
+    <string name="select_date_time">Select Date &amp; Time</string>
+    <string name="available_dates">Available Dates</string>
+    <string name="accepting_new_students">Accepting New Students</string>
+    <string name="confirm_booking">Confirm Booking</string>
+    
+    <!-- Shared/Errors -->
+    <string name="no_data_available">No data available at this time.</string>
 </resources>

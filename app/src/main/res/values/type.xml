@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Display / Screen Titles → Nunito Bold, 22sp, letterSpacing -0.02 -->
+    <style name="TextAppearance.Counselling.Display" parent="TextAppearance.Material3.DisplayMedium">
+        <item name="fontFamily">@font/nunito</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_display</item>
+        <item name="android:letterSpacing">-0.02</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <!-- Section Headers → Nunito SemiBold, 16sp -->
+    <style name="TextAppearance.Counselling.SectionHeader" parent="TextAppearance.Material3.TitleMedium">
+        <item name="fontFamily">@font/nunito</item>
+        <item name="android:textFontWeight">600</item>
+        <item name="android:textSize">@dimen/text_heading</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <!-- Body / Labels → Lato Regular, 14sp -->
+    <style name="TextAppearance.Counselling.Body" parent="TextAppearance.Material3.BodyMedium">
+        <item name="fontFamily">@font/lato</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/text_body</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <!-- Captions / Meta → Lato Regular, 12sp, text_secondary -->
+    <style name="TextAppearance.Counselling.Caption" parent="TextAppearance.Material3.BodySmall">
+        <item name="fontFamily">@font/lato</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/text_meta</item>
+        <item name="android:textColor">@color/text_secondary</item>
+    </style>
+
+    <!-- Button Text → Nunito SemiBold, 14sp, ALL CAPS false -->
+    <style name="TextAppearance.Counselling.Button" parent="TextAppearance.Material3.LabelLarge">
+        <item name="fontFamily">@font/nunito</item>
+        <item name="android:textFontWeight">600</item>
+        <item name="android:textSize">@dimen/text_body</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <!-- Stat Numbers → Nunito Bold, 28sp, text_primary -->
+    <style name="TextAppearance.Counselling.Stat" parent="TextAppearance.Material3.DisplayLarge">
+        <item name="fontFamily">@font/nunito</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_stat</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <style name="TextAppearance.Counselling.Title" parent="TextAppearance.Counselling.SectionHeader" />
+</resources>

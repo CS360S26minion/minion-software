@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        app:elevation="0dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="?attr/homeAsUpIndicator" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.Counselling.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/tvDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.Counselling.Title"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Mar 11, 2026" />
+
+                    <com.example.counselling_system.ui.common.StatusChipView
+                        android:id="@+id/chipStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Confirmed" />
+
+                    <TextView
+                        android:id="@+id/tvTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:textAppearance="@style/TextAppearance.Counselling.SectionHeader"
+                        android:textColor="@color/text_secondary"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvDate"
+                        tools:text="10:30 AM" />
+
+                    <View
+                        android:id="@+id/divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@drawable/divider_horizontal"
+                        app:layout_constraintTop_toBottomOf="@id/tvTime" />
+
+                    <com.example.counselling_system.ui.common.AvatarView
+                        android:id="@+id/ivAvatar"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/divider"
+                        tools:src="@drawable/bg_avatar_placeholder" />
+
+                    <TextView
+                        android:id="@+id/tvCounselor"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:textAppearance="@style/TextAppearance.Counselling.SectionHeader"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toEndOf="@id/ivAvatar"
+                        app:layout_constraintTop_toTopOf="@id/ivAvatar"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        tools:text="Dr. Sarah Jenkins" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:textAppearance="@style/TextAppearance.Counselling.Caption"
+                        app:layout_constraintStart_toEndOf="@id/ivAvatar"
+                        app:layout_constraintTop_toBottomOf="@id/tvCounselor"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        tools:text="Clinical Psychology" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <Button
+                android:id="@+id/btnReschedule"
+                style="@style/Widget.Counselling.Button.Outlined"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="Reschedule" />
+
+            <Button
+                android:id="@+id/btnCancel"
+                style="@style/Widget.Counselling.Button.Ghost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:textColor="@color/status_cancelled"
+                android:text="Cancel Appointment" />
+
+            <!-- Conditionally visible section -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardFeedback"
+                style="@style/Widget.Counselling.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="@style/TextAppearance.Counselling.SectionHeader"
+                        android:text="Session Feedback" />
+
+                    <com.example.counselling_system.ui.common.StarRatingView
+                        android:id="@+id/starRating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="28dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_gravity="center_horizontal" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.Counselling.TextInput.Outlined"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:hint="Share your thoughts…">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:lines="3"
+                            android:inputType="textMultiLine"
+                            android:gravity="top|start" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <Button
+                        android:id="@+id/btnSubmitReview"
+                        style="@style/Widget.Counselling.Button.Primary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="Submit Review" />
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

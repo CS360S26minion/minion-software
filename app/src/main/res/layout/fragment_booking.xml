@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/surface"
+        app:elevation="0dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="?attr/homeAsUpIndicator">
+            
+            <TextView
+                android:id="@+id/tvToolbarTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.Counselling.SectionHeader"
+                tools:text="Dr. Sarah Jenkins" />
+                
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="100dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardCounselorBanner"
+                style="@style/Widget.Counselling.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                app:layout_constraintTop_toTopOf="parent">
+                
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="12dp">
+                    
+                    <com.example.counselling_system.ui.common.AvatarView
+                        android:id="@+id/ivCounselorAvatar"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:src="@drawable/bg_avatar_placeholder" />
+                        
+                    <TextView
+                        android:id="@+id/tvCounselorName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:textAppearance="@style/TextAppearance.Counselling.SectionHeader"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toEndOf="@id/ivCounselorAvatar"
+                        app:layout_constraintTop_toTopOf="@id/ivCounselorAvatar"
+                        app:layout_constraintEnd_toStartOf="@id/chipAccepting"
+                        tools:text="Dr. Sarah Jenkins" />
+                        
+                    <TextView
+                        android:id="@+id/tvSpecialty"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:textAppearance="@style/TextAppearance.Counselling.Caption"
+                        app:layout_constraintStart_toEndOf="@id/ivCounselorAvatar"
+                        app:layout_constraintTop_toBottomOf="@id/tvCounselorName"
+                        app:layout_constraintEnd_toStartOf="@id/chipAccepting"
+                        tools:text="Clinical Psychology" />
+                        
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chipAccepting"
+                        style="@style/Widget.Counselling.Chip.Status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:chipBackgroundColor="@color/primary_light"
+                        android:textColor="@color/primary"
+                        android:textSize="10sp"
+                        android:text="@string/accepting_new_students"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+                        
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/lblSelectDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:textAppearance="@style/TextAppearance.Counselling.SectionHeader"
+                android:text="@string/select_date_time"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardCounselorBanner" />
+
+            <HorizontalScrollView
+                android:id="@+id/hsvDates"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:clipToPadding="false"
+                android:paddingHorizontal="16dp"
+                android:scrollbars="none"
+                app:layout_constraintTop_toBottomOf="@id/lblSelectDate">
+                
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvDateStrip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/view_date_pill" />
+            </HorizontalScrollView>
+
+            <LinearLayout
+                android:id="@+id/layoutLegend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/hsvDates">
+                
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.Counselling.Caption"
+                    android:text="@string/available_dates" />
+                    
+                <View
+                    android:layout_width="6dp"
+                    android:layout_height="6dp"
+                    android:layout_marginStart="6dp"
+                    android:background="@drawable/bg_pill_primary" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvTimeSlots"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"
+                app:layout_constraintTop_toBottomOf="@id/layoutLegend"
+                tools:listitem="@layout/view_time_slot" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Bottom sticky bar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/surface"
+        android:elevation="8dp"
+        android:padding="16dp">
+
+        <Button
+            android:id="@+id/btnConfirmBooking"
+            style="@style/Widget.Counselling.Button.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/confirm_booking" />
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

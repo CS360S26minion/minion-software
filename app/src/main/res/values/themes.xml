@@ -1,9 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.Counselling_system" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <style name="Theme.Counselling" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryContainer">@color/primary_light</item>
+        <item name="colorOnPrimary">@color/on_primary</item>
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorSurfaceVariant">@color/surface_variant</item>
+        <item name="android:colorBackground">@color/background</item>
+        <item name="android:windowBackground">@color/background</item>
+        
+        <item name="bottomSheetDialogTheme">@style/Widget.Counselling.BottomSheetDialog</item>
+        
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.SmallComponent</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.MediumComponent</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.LargeComponent</item>
     </style>
 
-    <style name="Theme.Counselling_system" parent="Base.Theme.Counselling_system" />
+    <!-- Map the existing default theme to our new theme so existing manifest entries don't break -->
+    <style name="Theme.Seproj" parent="Theme.Counselling" />
+    <style name="Base.Theme.Seproj" parent="Theme.Counselling" />
+
+    <style name="Widget.Counselling.BottomSheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/Widget.Counselling.BottomSheet</item>
+    </style>
+
+    <style name="Widget.Counselling.BottomSheet" parent="Widget.Design.BottomSheet.Modal">
+        <item name="shapeAppearance">@style/ShapeAppearance.MediumComponent</item>
+        <item name="backgroundTint">@color/surface</item>
+    </style>
+
+    <style name="ShapeAppearance.SmallComponent" parent="ShapeAppearance.Material3.SmallComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/radius_small</item>
+    </style>
+
+    <style name="ShapeAppearance.MediumComponent" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/radius_medium</item>
+    </style>
+
+    <style name="ShapeAppearance.LargeComponent" parent="ShapeAppearance.Material3.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/radius_large</item>
+    </style>
 </resources>

@@ -1,5 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- Base -->
+    <color name="background">#FAF9F6</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="surface_variant">#F3F0EB</color>
+    <color name="primary">#D48D76</color>
+    <color name="primary_light">#FDEAE6</color>
+    <color name="secondary">#6BAF92</color>
+    <color name="on_primary">#FFFFFF</color>
+    
+    <!-- Typography -->
+    <color name="text_primary">#1C1C1E</color>
+    <color name="text_secondary">#8A8A8E</color>
+    <color name="text_tertiary">#BCBCBF</color>
+    
+    <!-- Elements -->
+    <color name="divider">#EDEDF0</color>
+    
+    <!-- Status -->
+    <color name="status_confirmed">#6BAF92</color>
+    <color name="status_confirmed_bg">#EBF5F0</color>
+    <color name="status_pending">#F4A942</color>
+    <color name="status_pending_bg">#FEF4E3</color>
+    <color name="status_cancelled">#D9534F</color>
+    <color name="status_cancelled_bg">#FAEAEA</color>
+    
+    <!-- Components -->
+    <color name="star_active">#F4A942</color>
+    <color name="star_inactive">#E0DED8</color>
+    
+    <!-- Legacy Fallbacks -->
+    <color name="accent">#D48D76</color>
+    <color name="accent_light">#FDEAE6</color>
+    <color name="accent_gradient_end">#D48D76</color>
+    <color name="bg_primary">#FAF9F6</color>
+    <color name="success_bg">#EBF5F0</color>
+    <color name="error_bg">#FAEAEA</color>
+    <color name="card_bg">#FFFFFF</color>
+    <color name="glass_border">#FFFFFF</color>
+    <color name="white">#FFFFFF</color>
+    <color name="success_text">#6BAF92</color>
 </resources>

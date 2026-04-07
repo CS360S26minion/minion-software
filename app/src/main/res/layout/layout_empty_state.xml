@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutEmptyState"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="@dimen/spacing_xxlarge"
+    android:visibility="gone">
+
+    <TextView
+        android:id="@+id/tvEmptyStateIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="📪"
+        android:textSize="48sp" />
+
+    <TextView
+        android:id="@+id/tvEmptyStateTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_large"
+        android:textAppearance="@style/TextAppearance.Counselling.SectionHeader"
+        android:text="Nothing here yet"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/tvEmptyStateMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_small"
+        android:textAppearance="@style/TextAppearance.Counselling.Body"
+        android:textColor="@color/text_secondary"
+        android:text="@string/no_data_available"
+        android:gravity="center" />
+
+    <Button
+        android:id="@+id/btnEmptyStateAction"
+        style="@style/Widget.Counselling.Button.Outlined"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_large"
+        android:paddingStart="@dimen/spacing_large"
+        android:paddingEnd="@dimen/spacing_large"
+        android:text="Retry"
+        android:visibility="gone" />
+
+</LinearLayout>

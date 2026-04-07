@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base Dark -->
+    <color name="background">#121212</color>
+    <color name="surface">#1E1E1E</color>
+    <color name="surface_variant">#2D2D2D</color>
+    <color name="primary">#D48D76</color>
+    <color name="primary_light">#4A2017</color>
+    <color name="secondary">#6BAF92</color>
+    <color name="on_primary">#FFFFFF</color>
+    
+    <!-- Typography Dark -->
+    <color name="text_primary">#F2F2F7</color>
+    <color name="text_secondary">#AEAEB2</color>
+    <color name="text_tertiary">#636366</color>
+    
+    <!-- Elements Dark -->
+    <color name="divider">#38383A</color>
+    
+    <!-- Status Dark -->
+    <color name="status_confirmed">#6BAF92</color>
+    <color name="status_confirmed_bg">#193125</color>
+    <color name="status_pending">#F4A942</color>
+    <color name="status_pending_bg">#4D310C</color>
+    <color name="status_cancelled">#D9534F</color>
+    <color name="status_cancelled_bg">#4F1D1C</color>
+    
+    <!-- Components Dark -->
+    <color name="star_active">#F4A942</color>
+    <color name="star_inactive">#E0DED8</color>
+
+    <!-- Legacy Fallbacks -->
+    <color name="accent">#D48D76</color>
+    <color name="accent_light">#5C2D24</color>
+    <color name="accent_gradient_end">#D48D76</color>
+    <color name="bg_primary">#1C1C1E</color>
+    <color name="success_bg">#183D2A</color>
+    <color name="error_bg">#4A1211</color>
+    <color name="card_bg">#2C2C2E</color>
+    <color name="glass_border">#3C3C3E</color>
+    <color name="white">#FFFFFF</color>
+    <color name="success_text">#6BAF92</color>
+</resources>

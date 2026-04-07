@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Widget.Counselling.Button.Primary" parent="Widget.Material3.Button">
+        <item name="backgroundTint">@color/primary</item>
+        <item name="android:textColor">@color/on_primary</item>
+        <item name="cornerRadius">@dimen/radius_pill</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:minHeight">@dimen/button_height</item>
+        <item name="android:textAppearance">@style/TextAppearance.Counselling.Button</item>
+    </style>
+
+    <style name="Widget.Counselling.Button.Outlined" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="strokeColor">@color/primary</item>
+        <item name="strokeWidth">@dimen/stroke_medium</item>
+        <item name="android:textColor">@color/primary</item>
+        <item name="cornerRadius">@dimen/radius_pill</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:minHeight">@dimen/button_height</item>
+        <item name="android:textAppearance">@style/TextAppearance.Counselling.Button</item>
+    </style>
+
+    <style name="Widget.Counselling.Button.Ghost" parent="Widget.Material3.Button.TextButton">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.Counselling.Button</item>
+    </style>
+
+    <style name="Widget.Counselling.Card" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardBackgroundColor">@color/surface</item>
+        <item name="cardCornerRadius">@dimen/radius_medium</item>
+        <item name="cardElevation">@dimen/elevation_low</item>
+        <item name="strokeWidth">@dimen/stroke_thin</item>
+        <item name="strokeColor">@color/divider</item>
+    </style>
+
+    <style name="Widget.Counselling.Chip.Status" parent="Widget.Material3.Chip.Assist">
+        <item name="chipCornerRadius">@dimen/radius_pill</item>
+        <item name="android:clickable">false</item>
+    </style>
+
+    <style name="Widget.Counselling.TextInput.Outlined" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusTopStart">@dimen/radius_medium</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/radius_medium</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/radius_medium</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/radius_medium</item>
+        <item name="boxBackgroundColor">@color/surface_variant</item>
+        <item name="boxStrokeColor">@color/primary</item>
+        <item name="hintTextColor">@color/primary</item>
+    </style>
+    
+    <style name="Widget.Counselling.BottomNav" parent="Widget.Material3.BottomNavigationView">
+        <item name="android:background">@color/surface</item>
+        <item name="elevation">@dimen/elevation_high</item>
+        <item name="itemActiveIndicatorStyle">@style/Widget.Counselling.BottomNav.ActiveIndicator</item>
+    </style>
+
+    <style name="Widget.Counselling.BottomNav.ActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:layout_width">64dp</item>
+        <item name="android:layout_height">32dp</item>
+        <item name="android:backgroundTint">@color/primary_light</item>
+    </style>
+
+    <!-- Legacy API Fallbacks -->
+    <style name="Widget.App.Button.Primary" parent="Widget.Counselling.Button.Primary" />
+    <style name="Widget.App.Button.Secondary" parent="Widget.Counselling.Button.Ghost" />
+    <style name="Widget.App.Button.Danger" parent="Widget.Counselling.Button.Outlined" />
+</resources>

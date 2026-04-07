@@ -208,7 +208,9 @@ The team met with the TA to discuss the product backlog, the requirements for th
 **Discussion:**  
 The team met with the TA to present and discuss the CRC tables and the UI gallery. The TA reviewed the class responsibilities, interactions, and the overall UI flow shown in the gallery, and provided feedback on the consistency between the backlog, CRC tables, and prototype screens.## Meeting Minutes
 
-### Meeting 4 — April 1, 2026
+## Part 3 Sprint Reviews
+
+### Sprint Review 1 — April 1, 2026
 | Field | Info |
 |-------|------|
 | Date | April 1, 2026 |
@@ -220,3 +222,16 @@ The team met with the TA to present and discuss the CRC tables and the UI galler
 
 **Discussion:**  
 The team met with the TA to discuss the second deliverable. The session focused on clarifying requirements and resolving outstanding questions. The team also presented their implementation plan, and the TA provided feedback to ensure alignment with project expectations.
+
+### Sprint Review 2 — April 6, 2026
+| Field | Info |
+|-------|------|
+| Date | April 6, 2026 |
+| Time | 12:00 AM – 12:20 AM |
+| Duration | 20 minutes |
+| Meeting With | TA |
+
+**Attendees:** Iyan Aamir Aslam, Dayyan Ali Akhtar, Qayyum Ahmed, Shaheer Ahmad, Eman Nabeel  
+
+**Discussion:**  
+The team met with the TA to discuss the second deliverable. The session focused on reviewing working app with its core features. The team dicussed last minute issues that they were solving. The team also shared that they had conducted a user study with LUMS students to guage whether they would be interested and comforable with a few new features the team was trying to add.

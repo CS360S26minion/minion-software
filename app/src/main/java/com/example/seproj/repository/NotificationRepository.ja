@@ -1,0 +1,60 @@
+package com.example.seproj.repository;
+
+
+import com.example.seproj.model.AppNotification;
+import com.example.seproj.utils.FirestoreCallback;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Repository for in-app notification storage and retrieval.
+ * Used for confirmations, cancellations, and reminder events.
+ */
+public class NotificationRepository {
+
+    private static final String COLLECTION_NAME = "notifications";
+    private final FirebaseFirestore db;
+
+    public NotificationRepository() {
+        this.db = FirebaseFirestore.getInstance();
+    }
+
+    public void addNotification(AppNotification notification, final FirestoreCallback<Void> callback) {
+        db.collection(COLLECTION_NAME)
+                .document(notification.getNotificationId())
+                .set(notification)
+                .addOnSuccessListener(unused -> callback.onSuccess(null))
+                .addOnFailureListener(callback::onFailure);
+    }
+
+    public void getNotificationsForRecipient(String recipientId,
+                                             final FirestoreCallback<List<AppNotification>> callback) {
+        db.collection(COLLECTION_NAME)
+                .whereEqualTo("recipientId", recipientId)
+                .orderBy("createdAtMillis", Query.Direction.DESCENDING)
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    List<AppNotification> notifications = new ArrayList<>();
+                    for (DocumentSnapshot doc : queryDocumentSnapshots.getDocuments()) {
+                        AppNotification notification = doc.toObject(AppNotification.class);
+                        if (notification != null) {
+                            notifications.add(notification);
+                        }
+                    }
+                    callback.onSuccess(notifications);
+                })
+                .addOnFailureListener(callback::onFailure);
+    }
+
+    public void markAsRead(String notificationId, final FirestoreCallback<Void> callback) {
+        db.collection(COLLECTION_NAME)
+                .document(notificationId)
+                .update("read", true)
+                .addOnSuccessListener(unused -> callback.onSuccess(null))
+                .addOnFailureListener(callback::onFailure);
+    }
+}

@@ -332,4 +332,4 @@ Based on the study, we will extend the system by introducing:
 
 These additions aim to directly address user pain points and further improve usability and engagement.
 
-![User Study Insights](userstudy.png)
+![User Study Insights](UI/userstudy.png)

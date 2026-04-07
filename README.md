@@ -7,7 +7,7 @@ This document contains the initial product backlog for the Counseling Appointmen
 | ID | Title | User Story | Story Points | Risk Level | Checkpoint Release |
 | :--- | :--- | :--- | :---: | :---: | :---: |
 | **US01** | View Counselor List | **As a student**, I want to view a list of available counselors and their specialties so that I can choose one that fits my needs. | 2 | Low | Yes |
-| **US02** | View Available Slots | **As a student**, I want to view a calendar of available time slots for a specific counselor so that I can find a time that works with my schedule. | 5 | Medium | Yes |
+| **US02** | View Available Slots | **As a student**, I want to view available time slots for a specific counselor so that I can find a time that works with my schedule. | 5 | Medium | Yes |
 | **US03** | Book Time Slot | **As a student**, I want to select and book an available time slot so that I can secure a counseling session. | 8 | High | Yes |
 | **US04** | Cancel or Reschedule | **As a student**, I want to cancel or reschedule an upcoming appointment so that I can free up the slot if my plans change. | 5 | Medium | Yes |
 | **US05** | Set Availability | **As a counselor**, I want to set my available working hours and recurring breaks so that students only book slots when I am actually available. | 5 | Medium | Yes |

@@ -300,6 +300,8 @@ The team met with the TA to discuss the second deliverable. The session focused 
 ![UML Diagram](UI/uml-diagram-p3.png)
 
 ## Part 3 Updated UI Mockups
+<img width="1580" height="1369" alt="image" src="https://github.com/user-attachments/assets/ed27fe54-e0e7-4965-bc07-cff2a859e2b9" />
+
 
 ## Part 3: The Extra Mile
 

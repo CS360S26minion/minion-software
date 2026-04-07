@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@android:drawable/dialog_holo_light_frame">
+
+    <TextView
+        android:id="@+id/tvNotificationTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Notification Title"
+        android:textColor="#222222"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvNotificationMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Notification message"
+        android:textColor="#555555"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/tvNotificationType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Type: reminder_24h"
+        android:textColor="#1B5E20"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvNotificationTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Tue, 08 Apr 2026 10:30 AM"
+        android:textColor="#777777"
+        android:textSize="13sp" />
+
+</LinearLayout>

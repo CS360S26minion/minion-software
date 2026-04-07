@@ -10,9 +10,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Counselling_system">
+        android:theme="@style/Theme.Seproj">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.common.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,6 +20,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.student.StudentHomeActivity" />
+        <activity android:name=".ui.counselor.CounselorHomeActivity" />
+        <activity android:name=".ui.common.SignupActivity" />
+        <activity android:name=".ui.common.LoginActivity" />
+<!--        <activity android:name=".ui.common.MainActivity">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+<!--        </activity>-->
+        <activity android:name=".ui.student.CounselorListActivity" />
+        <activity android:name=".ui.student.StudentAppointmentsActivity" />
+        <activity android:name=".ui.counselor.SetAvailabilityActivity" />
+        <activity android:name=".ui.counselor.CounselorAppointmentsActivity" />
+        <activity android:name=".ui.student.AvailableSlotsActivity" />
+        <activity android:name=".ui.common.NotificationsActivity" />
     </application>
 
 </manifest>

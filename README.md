@@ -292,6 +292,8 @@ The team met with the TA to discuss the second deliverable. The session focused 
 The team met with the TA to discuss the second deliverable. The session focused on reviewing working app with its core features. The team dicussed last minute issues that they were solving. The team also shared that they had conducted a user study with LUMS students to guage whether they would be interested and comforable with a few new features the team was trying to add.
 
 ## Part 3 Updated Backlog
+<img width="1108" height="586" alt="image" src="https://github.com/user-attachments/assets/b5b0b30a-9fa0-400a-93a0-dc468cf939a8" />
+
 
 ## Part 3 Updated UML Diagrams
 

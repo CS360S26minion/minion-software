@@ -8,7 +8,7 @@ This document contains the initial product backlog for the Counseling Appointmen
 | :--- | :--- | :--- | :---: | :---: | :---: |
 | **US01** | View Counselor List | **As a student**, I want to view a list of available counselors and their specialties so that I can choose one that fits my needs. | 2 | Low | Yes |
 | **US02** | View Available Slots | **As a student**, I want to view available time slots for a specific counselor so that I can find a time that works with my schedule. | 5 | Medium | Yes |
-| **US03** | Book Time Slot | **As a student**, I want to select and book an available time slot so that I can secure a counseling session. | 8 | High | Yes |
+| **US03** | Book Time Slot | **As a student**, I want to select and book an available time slot so that I can secure a counseling session. | 5 | High | Yes |
 | **US04** | Cancel or Reschedule | **As a student**, I want to cancel or reschedule an upcoming appointment so that I can free up the slot if my plans change. | 5 | Medium | Yes |
 | **US05** | Set Availability | **As a counselor**, I want to set my available working hours and recurring breaks so that students only book slots when I am actually available. | 5 | Medium | Yes |
 | **US06** | View Appointments | **As a counselor**, I want to view my daily and weekly appointment schedule on a dashboard so that I can prepare for my upcoming sessions. | 3 | Low | Yes |
@@ -217,7 +217,7 @@ This sprint focuses on implementing core functionality for the counseling appoin
 ### 👤 Shaheer — Core Transactional Logic (13 pts)
 Responsible for handling critical database operations and ensuring system consistency. This includes managing concurrency to prevent issues such as double-booking.
 
-- **US03: Book Time Slot** (8 pts, High Risk)  
+- **US03: Book Time Slot** (5 pts, High Risk)  
 - **US04: Cancel or Reschedule Appointment** (5 pts, Medium Risk)
 
 ### 👤 Dayyan — Student Discovery & Read Views (7 pts)
@@ -248,7 +248,7 @@ Handles time-based features using background workers to trigger reminders for up
 
 | Team Member | Responsibility Area                | Story Points |
 |------------|----------------------------------|-------------|
-| Shaheer    | Core Transaction Logic           | 13 pts      |
+| Shaheer    | Core Transaction Logic           | 10 pts      |
 | Dayyan     | Student UI & Data Retrieval      | 7 pts       |
 | Qayyum     | Counselor Features & Dashboard   | 8 pts       |
 | Ayan       | Event-Driven Notifications       | 6 pts       |

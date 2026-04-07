@@ -302,3 +302,31 @@ The team met with the TA to discuss the second deliverable. The session focused 
 ## Part 3 Updated UI Mockups
 
 ## Part 3: The Extra Mile
+
+To better understand user needs and validate potential improvements, we conducted a user study with LUMS students focusing on their experiences with counseling appointment systems. The study gathered feedback on common pain points, preferred interfaces, and desired features.
+
+The results highlighted several recurring issues, including difficulty in finding suitable time slots, confusing booking processes, lack of clear confirmations, and challenges with rescheduling. A significant number of participants emphasized the importance of viewing counselor availability before booking and expressed a strong preference for simpler, more intuitive user interfaces.
+
+### 📊 Key Insights
+
+- ~85% of users found **appointment reminders** very helpful  
+- ~60% of users preferred a **calendar-based view** for booking  
+- ~80% of users expressed interest in **AI-based insights** (e.g., summaries)  
+- ~75% of users highlighted the need for a **simpler and more intuitive UI**
+
+### 🔗 Mapping Insights to Existing Features
+
+These findings validate several features already implemented in our system:
+- Reminder notifications directly address missed appointments  
+- Availability viewing aligns with user demand for transparency before booking  
+- Simplified UI flows address confusion in the booking process  
+
+### 🚀 Planned Enhancements
+
+Based on the study, we will extend the system by introducing:
+- A new user story for **AI-based insights on the user dashboard**  
+- An **optional calendar view** for browsing and booking available time slots  
+
+These additions aim to directly address user pain points and further improve usability and engagement.
+
+![User Study Insights](UI/User Study Insights (LUMS Students).png)

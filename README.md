@@ -303,6 +303,9 @@ The team met with the TA to discuss the second deliverable. The session focused 
 <img width="1514" height="1339" alt="image" src="https://github.com/user-attachments/assets/bd466bba-6be4-40c7-b035-6a6f17971a8d" />
 <img width="1301" height="653" alt="image" src="https://github.com/user-attachments/assets/b3acd511-96a8-4175-a469-5b74470b2451" />
 
+With Arrows:
+<img width="640" height="601" alt="image" src="https://github.com/user-attachments/assets/128e8202-43d8-406c-b291-4932b8ad0782" />
+Miro Board Link: https://miro.com/app/board/uXjVGmd8e-s=/
 
 ## Part 3: The Extra Mile
 

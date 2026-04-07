@@ -37,6 +37,70 @@ This document contains the initial product backlog for the Counseling Appointmen
 <img width="446" height="620" alt="image" src="https://github.com/user-attachments/assets/b7d11172-dcf1-4435-bec2-6fd2d540563e" />
 
 
+## Project Structure
+
+```text
+app/
+├── src/
+│   ├── main/
+│   │   ├── java/com/example/seproj/
+│   │   │   ├── model/                # Core data models
+│   │   │   │   ├── AppNotification
+│   │   │   │   ├── AppointmentSlot
+│   │   │   │   ├── Availability
+│   │   │   │   ├── Counselor
+│   │   │   │   └── Student
+│   │   │   │
+│   │   │   ├── repository/           # Firestore/database access layer
+│   │   │   │   ├── AppointmentSlotRepository
+│   │   │   │   ├── AvailabilityRepository
+│   │   │   │   ├── CounselorRepository
+│   │   │   │   ├── NotificationRepository
+│   │   │   │   └── StudentRepository
+│   │   │   │
+│   │   │   ├── service/              # Business logic layer
+│   │   │   │   ├── AvailabilityService
+│   │   │   │   ├── BookingService
+│   │   │   │   ├── NotificationService
+│   │   │   │   └── ReminderSchedulerService
+│   │   │   │
+│   │   │   ├── notifications/        # Notification helper utilities
+│   │   │   │   └── NotificationHelper
+│   │   │   │
+│   │   │   ├── workers/              # Background reminder workers
+│   │   │   │   ├── CounselorReminderWorker
+│   │   │   │   └── StudentReminderWorker
+│   │   │   │
+│   │   │   ├── ui/                   # User interface layer
+│   │   │   │   ├── common/           # Shared activities, adapters, custom views
+│   │   │   │   ├── counselor/        # Counselor-facing screens
+│   │   │   │   └── student/          # Student-facing screens
+│   │   │   │
+│   │   │   └── utils/                # Utility classes/interfaces
+│   │   │       └── FirestoreCallback
+│   │   │
+│   │   ├── res/                      # Layouts, drawables, strings, etc.
+│   │   └── AndroidManifest.xml
+│   │
+│   ├── test/
+│   │   └── java/com/example/seproj/  # Local unit tests (run on JVM)
+│   │       ├── AppNotificationTest
+│   │       ├── AppointmentSlotTest
+│   │       ├── AvailabilityTest
+│   │       ├── CounselorTest
+│   │       └── StudentTest
+│   │
+│   └── androidTest/
+│       └── java/com/example/seproj/  # Instrumentation/UI/integration tests
+│           ├── ReminderIntegrationTest
+│           ├── ReminderWorkerTest
+│           ├── CounselorListActivityTest
+│           ├── StudentAppointmentsActivityTest
+│           ├── NotificationsActivityTest
+│           └── ...
+
+```
+
 ## CRC Tables
 
 Each card identifies one of the system's core classes, describes what it is responsible for, and lists the other classes it must interact with to carry out those responsibilities. User story references are included for traceability back to the product backlog. We group them in 3 layers.

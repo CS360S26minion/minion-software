@@ -273,6 +273,59 @@ The team met with the TA to discuss the product backlog, the requirements for th
 The team met with the TA to present and discuss the CRC tables and the UI gallery. The TA reviewed the class responsibilities, interactions, and the overall UI flow shown in the gallery, and provided feedback on the consistency between the backlog, CRC tables, and prototype screens.## Meeting Minutes
 
 # Part 3
+## Part 3 Sprint Planning
+
+### 📅 Sprint Overview
+
+The sprint ran across **three weeks**, with each week targeting a specific layer of the system. Planning was done upfront and reviewed iteratively with the TA.
+
+---
+
+### 📆 Week 1 — Foundation & Core UI (March 20 – March 26, 2026)
+
+**Goal:** Set up the project skeleton, authentication flow, and student-facing read views.
+
+| Team Member | Planned Task | User Story |
+|-------------|-------------|------------|
+| Dayyan | Implement Counselor List screen with Firestore query | US01 |
+| Dayyan | Implement Available Slots screen with real-time slot loading | US02 |
+| Qayyum | Build Counselor Hub dashboard UI (daily/weekly agenda view) | US06 |
+| Shaheer | Set up Firestore schema for AppointmentSlot and Availability models | US03, US04 |
+| Ayan | Set up email notification infrastructure (templates + triggers) | US07, US09 |
+| Eman | Research WorkManager API and design reminder scheduling architecture | US08, US10 |
+
+---
+
+### 📆 Week 2 — Core Transactions & Counselor Features (March 27 – April 2, 2026)
+
+**Goal:** Implement the core booking/cancellation logic, counselor availability management, and event-driven notifications.
+
+| Team Member | Planned Task | User Story |
+|-------------|-------------|------------|
+| Shaheer | Implement Book Time Slot with concurrency/double-booking prevention | US03 |
+| Shaheer | Implement Cancel and Reschedule logic with slot state management | US04 |
+| Qayyum | Implement Set Availability screen with recurring schedule support | US05 |
+| Qayyum | Wire counselor dashboard to live Firestore appointment data | US06 |
+| Ayan | Trigger student confirmation email on successful booking | US07 |
+| Ayan | Trigger counselor confirmation email on new booking event | US09 |
+| Eman | Implement StudentReminderWorker with 24h WorkManager scheduling | US08 |
+| Eman | Implement CounselorReminderWorker with 24h WorkManager scheduling | US10 |
+| Dayyan | Connect Available Slots UI to live BookingService data | US02 |
+
+---
+
+### 📆 Week 3 — Integration, Testing & Sprint Review (April 3 – April 6, 2026)
+
+**Goal:** End-to-end integration, bug fixing, internal testing, and demo preparation for Sprint Review 2.
+
+| Team Member | Planned Task | User Story |
+|-------------|-------------|------------|
+| Shaheer | End-to-end testing of booking and cancellation flows | US03, US04 |
+| Dayyan | Integration testing of counselor list and slot views with live data | US01, US02 |
+| Qayyum | Validate availability and dashboard sync across student/counselor views | US05, US06 |
+| Ayan | Verify confirmation email delivery for both student and counselor | US07, US09 |
+| Eman | Verify 24-hour reminder triggers fire correctly end-to-end | US08, US10 |
+| All | Polish UI, fix review feedback from Sprint Review 1, prepare demo | — |
 
 ## Part 3 Sprint Planning
 

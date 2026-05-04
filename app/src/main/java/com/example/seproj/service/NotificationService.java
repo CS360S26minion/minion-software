@@ -106,6 +106,40 @@ public class NotificationService {
         saveTwoNotifications(studentNotification, counselorNotification, callback);
     }
 
+    public void createCounselorCancellationNotification(String studentId,
+                                                        String counselorId,
+                                                        String slotId,
+                                                        long startTimeMillis,
+                                                        NotificationActionCallback callback) {
+        String formattedTime = formatDateTime(startTimeMillis);
+
+        AppNotification studentNotification = new AppNotification(
+                UUID.randomUUID().toString(),
+                studentId,
+                AppNotification.ROLE_STUDENT,
+                "Appointment Cancelled",
+                "Your counselor cancelled the appointment scheduled for " + formattedTime + ".",
+                slotId,
+                System.currentTimeMillis(),
+                AppNotification.TYPE_CANCELLATION,
+                false
+        );
+
+        AppNotification counselorNotification = new AppNotification(
+                UUID.randomUUID().toString(),
+                counselorId,
+                AppNotification.ROLE_COUNSELOR,
+                "Appointment Cancelled",
+                "You cancelled the appointment scheduled for " + formattedTime + ".",
+                slotId,
+                System.currentTimeMillis(),
+                AppNotification.TYPE_CANCELLATION,
+                false
+        );
+
+        saveTwoNotifications(studentNotification, counselorNotification, callback);
+    }
+
     private void saveTwoNotifications(AppNotification first,
                                       AppNotification second,
                                       NotificationActionCallback callback) {

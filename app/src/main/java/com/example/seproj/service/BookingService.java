@@ -55,9 +55,34 @@ public class BookingService {
             String currentStatus = slotSnapshot.getString("status");
             String counselorId = slotSnapshot.getString("counselorId");
             Long startTimeMillis = slotSnapshot.getLong("startTimeMillis");
+            if (startTimeMillis == null) {
+                throw new RuntimeException("Slot time information missing.");
+            }
 
+            if (startTimeMillis <= System.currentTimeMillis()) {
+                throw new RuntimeException("You cannot book a slot that has already passed.");
+            }
             if (activeAppointmentId != null && !activeAppointmentId.trim().isEmpty()) {
-                throw new RuntimeException("Student already has an active appointment.");
+                DocumentReference activeSlotRef =
+                        db.collection(SLOTS_COLLECTION).document(activeAppointmentId);
+
+                DocumentSnapshot activeSlotSnapshot = transaction.get(activeSlotRef);
+
+                if (activeSlotSnapshot.exists()) {
+                    Long activeEndTime = activeSlotSnapshot.getLong("endTimeMillis");
+                    String activeStatus = activeSlotSnapshot.getString("status");
+
+                    boolean stillUpcoming =
+                            activeEndTime != null
+                                    && activeEndTime > System.currentTimeMillis()
+                                    && AppointmentSlot.STATUS_BOOKED.equals(activeStatus);
+
+                    if (stillUpcoming) {
+                        throw new RuntimeException("Student already has an active appointment.");
+                    }
+                }
+
+                transaction.update(studentRef, "activeAppointmentId", null);
             }
 
             if (!AppointmentSlot.STATUS_AVAILABLE.equals(currentStatus)) {
@@ -205,6 +230,88 @@ public class BookingService {
                         }
                     }
             );
+        }).addOnFailureListener(e -> {
+            if (callback != null) {
+                callback.onFailure(e.getMessage() != null ? e.getMessage() : "Cancellation failed.");
+            }
+        });
+    }
+
+    public void cancelSlotByCounselor(String counselorId, String slotId, BookingCallback callback) {
+        DocumentReference slotRef = db.collection(SLOTS_COLLECTION).document(slotId);
+        final String[] studentIdHolder = new String[1];
+        final long[] startTimeHolder = new long[1];
+
+        db.runTransaction((Transaction.Function<Void>) transaction -> {
+            DocumentSnapshot slotSnapshot = transaction.get(slotRef);
+
+            if (!slotSnapshot.exists()) {
+                throw new RuntimeException("Appointment slot not found.");
+            }
+
+            String currentStatus = slotSnapshot.getString("status");
+            String slotCounselorId = slotSnapshot.getString("counselorId");
+            String studentId = slotSnapshot.getString("studentId");
+            Long startTimeMillis = slotSnapshot.getLong("startTimeMillis");
+
+            if (slotCounselorId == null || !slotCounselorId.equals(counselorId)) {
+                throw new RuntimeException("You can only cancel your own appointment slots.");
+            }
+
+            if (startTimeMillis == null) {
+                throw new RuntimeException("Slot time information missing.");
+            }
+
+            if (startTimeMillis <= System.currentTimeMillis()) {
+                throw new RuntimeException("Past slots cannot be cancelled.");
+            }
+
+            if (!AppointmentSlot.STATUS_BOOKED.equals(currentStatus)
+                    && !AppointmentSlot.STATUS_AVAILABLE.equals(currentStatus)) {
+                throw new RuntimeException("This slot cannot be cancelled.");
+            }
+
+            studentIdHolder[0] = studentId;
+            startTimeHolder[0] = startTimeMillis;
+
+            transaction.update(slotRef, "status", AppointmentSlot.STATUS_CANCELLED);
+
+            if (studentId != null && !studentId.trim().isEmpty()) {
+                DocumentReference studentRef = db.collection(STUDENTS_COLLECTION).document(studentId);
+                transaction.update(studentRef, "activeAppointmentId", null);
+            }
+
+            return null;
+        }).addOnSuccessListener(unused -> {
+            ReminderSchedulerService.cancelAppointmentReminders(appContext, slotId);
+
+            if (studentIdHolder[0] == null || studentIdHolder[0].trim().isEmpty()) {
+                if (callback != null) {
+                    callback.onSuccess("Slot cancelled successfully.");
+                }
+                return;
+            }
+
+            notificationService.createCounselorCancellationNotification(
+                    studentIdHolder[0],
+                    counselorId,
+                    slotId,
+                    startTimeHolder[0],
+                    new NotificationService.NotificationActionCallback() {
+                        @Override
+                        public void onComplete() {
+                            if (callback != null) {
+                                callback.onSuccess("Appointment cancelled and student notified.");
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(String errorMessage) {
+                            if (callback != null) {
+                                callback.onSuccess("Appointment cancelled, but notification creation failed.");
+                            }
+                        }
+                    });
         }).addOnFailureListener(e -> {
             if (callback != null) {
                 callback.onFailure(e.getMessage() != null ? e.getMessage() : "Cancellation failed.");

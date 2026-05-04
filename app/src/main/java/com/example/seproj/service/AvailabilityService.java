@@ -55,7 +55,7 @@ public class AvailabilityService {
                     return;
                 }
 
-                saveGeneratedSlots(generatedSlots, 0, callback);
+                removeOverlappingExistingSlots(generatedSlots, availability.getCounselorId(), callback);
             }
 
             @Override
@@ -63,6 +63,55 @@ public class AvailabilityService {
                 callback.onFailure("Failed to save availability: " + e.getMessage());
             }
         });
+    }
+
+    private void removeOverlappingExistingSlots(List<AppointmentSlot> generatedSlots,
+                                                String counselorId,
+                                                AvailabilityActionCallback callback) {
+        appointmentSlotRepository.getAppointmentsForCounselor(counselorId, new FirestoreCallback<List<AppointmentSlot>>() {
+            @Override
+            public void onSuccess(List<AppointmentSlot> existingSlots) {
+                List<AppointmentSlot> safeSlots = new ArrayList<>();
+
+                for (AppointmentSlot candidate : generatedSlots) {
+                    if (!overlapsAnyActiveSlot(candidate, existingSlots)) {
+                        safeSlots.add(candidate);
+                    }
+                }
+
+                if (safeSlots.isEmpty()) {
+                    callback.onFailure("No new slots were generated because they overlap with existing slots.");
+                    return;
+                }
+
+                saveGeneratedSlots(safeSlots, 0, callback);
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                callback.onFailure("Failed to check existing slots: " + e.getMessage());
+            }
+        });
+    }
+
+    private boolean overlapsAnyActiveSlot(AppointmentSlot candidate, List<AppointmentSlot> existingSlots) {
+        if (existingSlots == null) {
+            return false;
+        }
+
+        for (AppointmentSlot existing : existingSlots) {
+            if (existing == null || AppointmentSlot.STATUS_CANCELLED.equals(existing.getStatus())) {
+                continue;
+            }
+
+            boolean overlaps = candidate.getStartTimeMillis() < existing.getEndTimeMillis()
+                    && candidate.getEndTimeMillis() > existing.getStartTimeMillis();
+            if (overlaps) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void saveGeneratedSlots(List<AppointmentSlot> slots,
@@ -106,7 +155,7 @@ public class AvailabilityService {
             return generatedSlots;
         }
 
-        Calendar baseDate = Calendar.getInstance();
+//        Calendar baseDate = Calendar.getInstance();
 
         for (int weekOffset = 0; weekOffset < WEEKS_TO_GENERATE; weekOffset++) {
             Calendar targetDate = getNextWeekdayOccurrence(dayOfWeek, weekOffset);
@@ -131,18 +180,38 @@ public class AvailabilityService {
                     break;
                 }
 
-                AppointmentSlot slot = new AppointmentSlot(
-                        UUID.randomUUID().toString(),
-                        availability.getCounselorId(),
-                        null,
-                        slotStart.getTimeInMillis(),
-                        slotEnd.getTimeInMillis(),
-                        AppointmentSlot.STATUS_AVAILABLE,
-                        false,
-                        false
-                );
+//                AppointmentSlot slot = new AppointmentSlot(
+//                        UUID.randomUUID().toString(),
+//                        availability.getCounselorId(),
+//                        null,
+//                        slotStart.getTimeInMillis(),
+//                        slotEnd.getTimeInMillis(),
+//                        AppointmentSlot.STATUS_AVAILABLE,
+//                        false,
+//                        false
+//                );
+//
+//                generatedSlots.add(slot);
+//                slotStart = slotEnd;
+                long now = System.currentTimeMillis();
+                long slotStartMillis = slotStart.getTimeInMillis();
+                long slotEndMillis = slotEnd.getTimeInMillis();
 
-                generatedSlots.add(slot);
+                if (slotStartMillis > now) {
+                    AppointmentSlot slot = new AppointmentSlot(
+                            UUID.randomUUID().toString(),
+                            availability.getCounselorId(),
+                            null,
+                            slotStartMillis,
+                            slotEndMillis,
+                            AppointmentSlot.STATUS_AVAILABLE,
+                            false,
+                            false
+                    );
+
+                    generatedSlots.add(slot);
+                }
+
                 slotStart = slotEnd;
             }
         }

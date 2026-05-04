@@ -453,3 +453,14 @@ Based on the study, we will extend the system by introducing:
 These additions aim to directly address user pain points and further improve usability and engagement.
 
 ![User Study Insights](UI/userstudy.png)
+
+# Final Deliverable
+## Final Deliverable Sprint Planning
+
+## Final Deliverable Sprint Review
+
+## Final Deliverable Updated Backlog
+
+## Final Deliverable Updated UI Mockups
+
+## Final Deliverable Extra Mile

@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.counselling_system"
+    namespace = "com.example.seproj"
     compileSdk {
         version = release(36)
     }
@@ -13,7 +13,7 @@ android {
     val aiInsightsModel = (project.findProperty("GEMINI_MODEL") as String?) ?: "gemini-2.5-flash"
 
     defaultConfig {
-        applicationId = "com.example.counselling_system"
+        applicationId = "com.example.seproj"
         minSdk = 24
         targetSdk = 36
         versionCode = 1

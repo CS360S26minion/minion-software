@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "counselling_system"
+rootProject.name = "seproj"
 include(":app")

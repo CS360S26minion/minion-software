@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -24,18 +26,31 @@
         <activity android:name=".ui.counselor.CounselorHomeActivity" />
         <activity android:name=".ui.common.SignupActivity" />
         <activity android:name=".ui.common.LoginActivity" />
-<!--        <activity android:name=".ui.common.MainActivity">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
+        <!--        <activity android:name=".ui.common.MainActivity">-->
+        <!--            <intent-filter>-->
+        <!--                <action android:name="android.intent.action.MAIN" />-->
+        <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+        <!--            </intent-filter>-->
+        <!--        </activity>-->
         <activity android:name=".ui.student.CounselorListActivity" />
         <activity android:name=".ui.student.StudentAppointmentsActivity" />
         <activity android:name=".ui.counselor.SetAvailabilityActivity" />
         <activity android:name=".ui.counselor.CounselorAppointmentsActivity" />
         <activity android:name=".ui.student.AvailableSlotsActivity" />
         <activity android:name=".ui.common.NotificationsActivity" />
+        <activity android:name=".ui.student.IntakeFormActivity" />
+        <activity android:name=".ui.student.FeedbackFormActivity" />
+        <activity android:name=".ui.common.AiInsightActivity" />
+        <activity android:name=".ui.common.AiChatbotActivity" />
+        <activity android:name=".ui.counselor.MarkNoShowActivity" />
+        <!--        <activity android:name=".ui.common.AdminAnalyticsActivity" />-->
+        <!--        <activity android:name=".ui.common.AdminCounselorManagementActivity" />-->
+        <activity android:name=".ui.admin.AdminHomeActivity" />
+        <activity android:name=".ui.admin.AdminAnalyticsActivity" />
+        <activity android:name=".ui.admin.AdminCounselorManagementActivity" /><activity android:name=".ui.counselor.ViewIntakeFormActivity" />
+        <activity android:name=".ui.admin.AdminCounselorFeedbackListActivity" />
+        <activity android:name=".ui.admin.AdminFeedbackDetailActivity" />
+
     </application>
 
 </manifest>

@@ -21,17 +21,17 @@ This document contains the initial product backlog for the Counseling Appointmen
 | **US08** | Student Appointment Reminder | **As a student**, I want to receive an automated reminder 24 hours before my appointment so that I don't forget and miss the session. | 5 | High | Yes |
 | **US09** | Counselor Booking Confirmation| **As a counselor**, I want to receive an automated email confirmation when someone books an apointment with me so that I have a reliable record of the schedule. | 3 | Medium | Yes |
 | **US10** | Counselor Appt Reminder | **As a counselor**, I want to receive an automated reminder 24 hours before the appointment booked with me so that I don't forget and miss the session. | 5 | High | Yes |
-| **US11** | Mark No-Show | **As a counselor**, I want to be able to mark an appointment as a "no-show" directly from my dashboard so that the office can track attendance. | 2 | Low | No |
-| **US12** | View Appointment History | **As a student**, I want to view my past and upcoming appointment history so that I can keep track of my counseling journey. | 3 | Low | No |
+| **US11** | Mark No-Show | **As a counselor**, I want to be able to mark an appointment as a "no-show" directly from my dashboard so that the office can track attendance. | 2 | Low | Yes |
+| **US12** | View Appointment History | **As a student**, I want to view my past and upcoming appointment history so that I can keep track of my counseling journey. | 3 | Low | Yes |
 
 ### 3. Progressive Features
 
 | ID | Title | User Story | Story Points | Risk Level | Checkpoint Release |
 | :--- | :--- | :--- | :---: | :---: | :---: |
-| **US13** | Submit Intake Form | **As a student**, I want to fill out a secure pre-session intake form during the booking process so that my counselor has context before we meet. | 5 | High | No |
-| **US14** | Submit Session Feedback | **As a student**, I want to submit an anonymous post-session feedback form so that I can evaluate the helpfulness of the service. | 3 | Low | No |
-| **US15** | View Admin Analytics | **As an admin**, I want to view aggregate no-show tracking and analytics so that I can identify trends and improve clinic efficiency. | 8 | Medium | No |
-| **US16** | Manage Counselor Profiles | **As an admin**, I want to manage counselor profiles, system access, and roles so that the platform remains secure and up to date. | 3 | Low | No |
+| **US13** | Submit Intake Form | **As a student**, I want to fill out a secure pre-session intake form during the booking process so that my counselor has context before we meet. | 5 | High | Yes |
+| **US14** | Submit Session Feedback | **As a student**, I want to submit an anonymous post-session feedback form so that I can evaluate the helpfulness of the service. | 3 | Low | Yes |
+| **US15** | View Admin Analytics | **As an admin**, I want to view aggregate no-show tracking and analytics so that I can identify trends and improve clinic efficiency. | 8 | Medium | Yes |
+| **US16** | Manage Counselor Profiles | **As an admin**, I want to manage counselor profiles, system access, and roles so that the platform remains secure and up to date. | 3 | Low | Yes |
 
 ### Screenshot of backlog:
 <img width="446" height="620" alt="image" src="https://github.com/user-attachments/assets/b7d11172-dcf1-4435-bec2-6fd2d540563e" />
@@ -45,24 +45,37 @@ app/
 │   ├── main/
 │   │   ├── java/com/example/seproj/
 │   │   │   ├── model/                # Core data models
+│   │   │   │   ├── Admin
+│   │   │   │   ├── AiInsightSummary
 │   │   │   │   ├── AppNotification
 │   │   │   │   ├── AppointmentSlot
 │   │   │   │   ├── Availability
 │   │   │   │   ├── Counselor
+│   │   │   │   ├── FeedbackForm
+│   │   │   │   ├── IntakeForm
+│   │   │   │   ├── NoShowRecord
 │   │   │   │   └── Student
 │   │   │   │
 │   │   │   ├── repository/           # Firestore/database access layer
+│   │   │   │   ├── AdminRepository
+│   │   │   │   ├── AiInsightRepository
 │   │   │   │   ├── AppointmentSlotRepository
 │   │   │   │   ├── AvailabilityRepository
 │   │   │   │   ├── CounselorRepository
+│   │   │   │   ├── FeedbackRepository
+│   │   │   │   ├── IntakeFormRepository
+│   │   │   │   ├── NoShowRepository
 │   │   │   │   ├── NotificationRepository
 │   │   │   │   └── StudentRepository
 │   │   │   │
 │   │   │   ├── service/              # Business logic layer
+│   │   │   │   ├── AiChatbotService
+│   │   │   │   ├── AiInsightService
 │   │   │   │   ├── AvailabilityService
 │   │   │   │   ├── BookingService
 │   │   │   │   ├── NotificationService
-│   │   │   │   └── ReminderSchedulerService
+│   │   │   │   ├── ReminderSchedulerService
+│   │   │   │   └── SupportFeatureService
 │   │   │   │
 │   │   │   ├── notifications/        # Notification helper utilities
 │   │   │   │   └── NotificationHelper
@@ -72,18 +85,56 @@ app/
 │   │   │   │   └── StudentReminderWorker
 │   │   │   │
 │   │   │   ├── ui/                   # User interface layer
-│   │   │   │   ├── common/           # Shared activities, adapters, custom views
+│   │   │   │   ├── admin/            # Admin-facing screens
+│   │   │   │   │   ├── AdminAnalyticsActivity
+│   │   │   │   │   ├── AdminCounselorFeedbackListActivity
+│   │   │   │   │   ├── AdminCounselorManagementActivity
+│   │   │   │   │   ├── AdminFeedbackDetailActivity
+│   │   │   │   │   └── AdminHomeActivity
+│   │   │   │   │
+│   │   │   │   ├── common/           # Shared activities, adapters, and custom views
+│   │   │   │   │   ├── AdminCounselorAdapter
+│   │   │   │   │   ├── AdminFeedbackAdapter
+│   │   │   │   │   ├── AiChatbotActivity
+│   │   │   │   │   ├── AiInsightActivity
+│   │   │   │   │   ├── AppointmentAdapter
+│   │   │   │   │   ├── AvatarView
+│   │   │   │   │   ├── BottomTaskbar
+│   │   │   │   │   ├── CounselorAdapter
+│   │   │   │   │   ├── DateStripAdapter
+│   │   │   │   │   ├── LoginActivity
+│   │   │   │   │   ├── MainActivity
+│   │   │   │   │   ├── NotificationAdapter
+│   │   │   │   │   ├── NotificationsActivity
+│   │   │   │   │   ├── SignupActivity
+│   │   │   │   │   ├── SlotAdapter
+│   │   │   │   │   ├── StarRatingView
+│   │   │   │   │   ├── StatusChipView
+│   │   │   │   │   └── TimeSlotGridAdapter
+│   │   │   │   │
 │   │   │   │   ├── counselor/        # Counselor-facing screens
+│   │   │   │   │   ├── CounselorAppointmentsActivity
+│   │   │   │   │   ├── CounselorHomeActivity
+│   │   │   │   │   ├── MarkNoShowActivity
+│   │   │   │   │   ├── SetAvailabilityActivity
+│   │   │   │   │   └── ViewIntakeFormActivity
+│   │   │   │   │
 │   │   │   │   └── student/          # Student-facing screens
+│   │   │   │       ├── AvailableSlotsActivity
+│   │   │   │       ├── CounselorListActivity
+│   │   │   │       ├── FeedbackFormActivity
+│   │   │   │       ├── IntakeFormActivity
+│   │   │   │       ├── StudentAppointmentsActivity
+│   │   │   │       └── StudentHomeActivity
 │   │   │   │
 │   │   │   └── utils/                # Utility classes/interfaces
 │   │   │       └── FirestoreCallback
 │   │   │
-│   │   ├── res/                      # Layouts, drawables, strings, etc.
+│   │   ├── res/                      # Layouts, drawables, colors, strings, themes
 │   │   └── AndroidManifest.xml
 │   │
 │   ├── test/
-│   │   └── java/com/example/seproj/  # Local unit tests (run on JVM)
+│   │   └── java/com/example/seproj/  # Local unit tests
 │   │       ├── AppNotificationTest
 │   │       ├── AppointmentSlotTest
 │   │       ├── AvailabilityTest
@@ -92,13 +143,12 @@ app/
 │   │
 │   └── androidTest/
 │       └── java/com/example/seproj/  # Instrumentation/UI/integration tests
+│           ├── CounselorListActivityTest
+│           ├── NotificationsActivityTest
 │           ├── ReminderIntegrationTest
 │           ├── ReminderWorkerTest
-│           ├── CounselorListActivityTest
 │           ├── StudentAppointmentsActivityTest
-│           ├── NotificationsActivityTest
 │           └── ...
-
 ```
 
 ## CRC Tables

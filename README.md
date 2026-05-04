@@ -605,6 +605,9 @@ The TA encouraged the team to continue refining these features and ensure they a
 
 ## Final Deliverable Updated Backlog
 
+<img width="144" height="675" alt="image" src="https://github.com/user-attachments/assets/b2f24f82-3d34-49ce-a790-667e942f889c" />
+
+
 ## Final Deliverable Updated UI Mockups
 ## UI Flow Mockup 
 <img width="3000" height="2200" alt="image" src="https://github.com/user-attachments/assets/4eb7b9b8-cc48-4957-b87a-2675e3669165" />

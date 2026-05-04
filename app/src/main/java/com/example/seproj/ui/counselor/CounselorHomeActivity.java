@@ -1,13 +1,18 @@
 package com.example.seproj.ui.counselor;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.seproj.R;
+import com.example.seproj.repository.CounselorRepository;
+import com.example.seproj.ui.common.BottomTaskbar;
 import com.example.seproj.ui.common.LoginActivity;
 import com.example.seproj.ui.common.NotificationsActivity;
 import com.example.seproj.ui.counselor.CounselorAppointmentsActivity;
@@ -33,6 +38,8 @@ public class CounselorHomeActivity extends AppCompatActivity {
     private Button btnViewAppointments;
     private Button btnLogout;
     private Button btnCounselorNotifications;
+    private Button btnEditBio;
+    private CounselorRepository counselorRepository;
 
     private String counselorId;
     private String counselorName;
@@ -47,8 +54,11 @@ public class CounselorHomeActivity extends AppCompatActivity {
         btnViewAppointments = findViewById(R.id.btnViewCounselorAppointments);
         btnLogout = findViewById(R.id.btnCounselorLogout);
         btnCounselorNotifications = findViewById(R.id.btnCounselorNotifications);
+        btnEditBio = findViewById(R.id.btnEditBio);
+        counselorRepository = new CounselorRepository();
         counselorId = getIntent().getStringExtra("counselorId");
         counselorName = getIntent().getStringExtra("counselorName");
+        BottomTaskbar.attachCounselor(this, counselorId, counselorName);
 
         if (counselorName != null && !counselorName.trim().isEmpty()) {
             tvWelcomeCounselor.setText("Welcome, " + counselorName);
@@ -83,5 +93,28 @@ public class CounselorHomeActivity extends AppCompatActivity {
             intent.putExtra("displayName", counselorName);
             startActivity(intent);
         });
+
+        btnEditBio.setOnClickListener(v -> showEditBioDialog());
+    }
+
+    private void showEditBioDialog() {
+        EditText input = new EditText(this);
+        input.setMinLines(3);
+        input.setHint("Write a short counselor bio");
+        input.setPadding(24, 16, 24, 16);
+
+        new AlertDialog.Builder(this)
+                .setTitle("Edit Bio")
+                .setView(input)
+                .setPositiveButton("Save", (dialog, which) -> {
+                    String bio = input.getText().toString().trim();
+                    counselorRepository.updateCounselorBio(counselorId, bio)
+                            .addOnSuccessListener(unused ->
+                                    Toast.makeText(this, "Bio updated", Toast.LENGTH_SHORT).show())
+                            .addOnFailureListener(e ->
+                                    Toast.makeText(this, "Failed: " + e.getMessage(), Toast.LENGTH_LONG).show());
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
     }
 }

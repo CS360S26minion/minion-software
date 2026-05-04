@@ -1,6 +1,7 @@
 package com.example.seproj.ui.counselor;
 
 import android.app.TimePickerDialog;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -15,8 +16,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.seproj.R;
 import com.example.seproj.model.Availability;
 import com.example.seproj.service.AvailabilityService;
+import com.example.seproj.ui.common.BottomTaskbar;
 
 import java.util.Calendar;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -34,10 +38,12 @@ public class SetAvailabilityActivity extends AppCompatActivity {
 
     private TextView tvSetAvailabilityTitle;
     private AutoCompleteTextView actvDayOfWeek;
+    private TextView tvSelectedDate;
     private TextView tvSelectedStartTime;
     private TextView tvSelectedEndTime;
     private Button btnPickStartTime;
     private Button btnPickEndTime;
+    private Button btnPickDate;
     private Button btnSaveAvailability;
     private Button btnBack;
     private Button btnHome;
@@ -48,6 +54,7 @@ public class SetAvailabilityActivity extends AppCompatActivity {
 
     private String selectedStartTime;
     private String selectedEndTime;
+    private Long selectedDateMillis;
 
     private final Map<String, Integer> dayMap = new HashMap<>();
 
@@ -59,14 +66,17 @@ public class SetAvailabilityActivity extends AppCompatActivity {
         btnHome = findViewById(R.id.btnHome);
         tvSetAvailabilityTitle = findViewById(R.id.tvSetAvailabilityTitle);
         actvDayOfWeek = findViewById(R.id.actvDayOfWeek);
+        tvSelectedDate = findViewById(R.id.tvSelectedDate);
         tvSelectedStartTime = findViewById(R.id.tvSelectedStartTime);
         tvSelectedEndTime = findViewById(R.id.tvSelectedEndTime);
+        btnPickDate = findViewById(R.id.btnPickDate);
         btnPickStartTime = findViewById(R.id.btnPickStartTime);
         btnPickEndTime = findViewById(R.id.btnPickEndTime);
         btnSaveAvailability = findViewById(R.id.btnSaveAvailability);
 
         counselorId = getIntent().getStringExtra("counselorId");
         counselorName = getIntent().getStringExtra("counselorName");
+        BottomTaskbar.attachCounselor(this, counselorId, counselorName);
 
         if (counselorName != null && !counselorName.trim().isEmpty()) {
             tvSetAvailabilityTitle.setText("Set Availability - " + counselorName);
@@ -77,6 +87,7 @@ public class SetAvailabilityActivity extends AppCompatActivity {
         setupDayDropdown();
         setupDayMap();
 
+        btnPickDate.setOnClickListener(v -> showDatePicker());
         btnPickStartTime.setOnClickListener(v -> showTimePicker(true));
         btnPickEndTime.setOnClickListener(v -> showTimePicker(false));
         btnSaveAvailability.setOnClickListener(v -> saveAvailability());
@@ -143,6 +154,34 @@ public class SetAvailabilityActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    private void showDatePicker() {
+        Calendar now = Calendar.getInstance();
+        DatePickerDialog dialog = new DatePickerDialog(
+                this,
+                (view, year, month, dayOfMonth) -> {
+                    Calendar selected = Calendar.getInstance();
+                    selected.set(Calendar.YEAR, year);
+                    selected.set(Calendar.MONTH, month);
+                    selected.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                    selected.set(Calendar.HOUR_OF_DAY, 0);
+                    selected.set(Calendar.MINUTE, 0);
+                    selected.set(Calendar.SECOND, 0);
+                    selected.set(Calendar.MILLISECOND, 0);
+
+                    selectedDateMillis = selected.getTimeInMillis();
+                    String label = new SimpleDateFormat("EEE, dd MMM yyyy", Locale.getDefault())
+                            .format(new Date(selectedDateMillis));
+                    tvSelectedDate.setText(label);
+                    actvDayOfWeek.setText(dayNameForCalendarDay(selected.get(Calendar.DAY_OF_WEEK)), false);
+                },
+                now.get(Calendar.YEAR),
+                now.get(Calendar.MONTH),
+                now.get(Calendar.DAY_OF_MONTH)
+        );
+        dialog.getDatePicker().setMinDate(now.getTimeInMillis());
+        dialog.show();
+    }
+
     private void saveAvailability() {
         String selectedDay = actvDayOfWeek.getText().toString().trim();
 
@@ -173,6 +212,28 @@ public class SetAvailabilityActivity extends AppCompatActivity {
             return;
         }
 
+        long now = System.currentTimeMillis();
+
+        Calendar cal = Calendar.getInstance();
+        if (selectedDateMillis != null) {
+            cal.setTimeInMillis(selectedDateMillis);
+            dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+        } else {
+            cal.set(Calendar.DAY_OF_WEEK, dayOfWeek);
+        }
+
+        String[] startParts = selectedStartTime.split(":");
+        cal.set(Calendar.HOUR_OF_DAY, Integer.parseInt(startParts[0]));
+        cal.set(Calendar.MINUTE, Integer.parseInt(startParts[1]));
+        cal.set(Calendar.SECOND, 0);
+
+        if (cal.getTimeInMillis() <= now) {
+            Toast.makeText(this,
+                    "This time has already passed for this week.",
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
+
         Availability availability = new Availability(
                 UUID.randomUUID().toString(),
                 counselorId,
@@ -193,8 +254,10 @@ public class SetAvailabilityActivity extends AppCompatActivity {
                         Toast.makeText(SetAvailabilityActivity.this, message, Toast.LENGTH_LONG).show();
 
                         actvDayOfWeek.setText("");
+                        selectedDateMillis = null;
                         selectedStartTime = null;
                         selectedEndTime = null;
+                        tvSelectedDate.setText("Not selected");
                         tvSelectedStartTime.setText("Start Time: Not Selected");
                         tvSelectedEndTime.setText("End Time: Not Selected");
                     }
@@ -220,5 +283,14 @@ public class SetAvailabilityActivity extends AppCompatActivity {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    private String dayNameForCalendarDay(int dayOfWeek) {
+        for (Map.Entry<String, Integer> entry : dayMap.entrySet()) {
+            if (entry.getValue() == dayOfWeek) {
+                return entry.getKey();
+            }
+        }
+        return "";
     }
 }

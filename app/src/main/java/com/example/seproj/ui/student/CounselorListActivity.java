@@ -14,8 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.seproj.R;
 import com.example.seproj.model.Counselor;
+import com.example.seproj.model.FeedbackForm;
 import com.example.seproj.repository.CounselorRepository;
+import com.example.seproj.repository.FeedbackRepository;
 import com.example.seproj.ui.common.CounselorAdapter;
+import com.example.seproj.ui.common.BottomTaskbar;
 import com.example.seproj.utils.FirestoreCallback;
 import com.example.seproj.ui.student.AvailableSlotsActivity;
 
@@ -41,6 +44,7 @@ public class CounselorListActivity extends AppCompatActivity {
 
     private CounselorAdapter counselorAdapter;
     private CounselorRepository counselorRepository;
+    private FeedbackRepository feedbackRepository;
 
     private String studentId;
     private String studentName;
@@ -60,8 +64,10 @@ public class CounselorListActivity extends AppCompatActivity {
         studentId = getIntent().getStringExtra("studentId");
         studentName = getIntent().getStringExtra("studentName");
         openSlotsDirectly = getIntent().getBooleanExtra("openSlotsDirectly", false);
+        BottomTaskbar.attachStudent(this, studentId, studentName);
 
         counselorRepository = new CounselorRepository();
+        feedbackRepository = new FeedbackRepository();
 
         setupRecyclerView();
         loadCounselors();
@@ -107,6 +113,7 @@ public class CounselorListActivity extends AppCompatActivity {
                     tvEmptyState.setVisibility(View.GONE);
                     rvCounselors.setVisibility(View.VISIBLE);
                     counselorAdapter.setCounselorList(result);
+                    loadCounselorRatings(result);
                 }
             }
 
@@ -127,5 +134,34 @@ public class CounselorListActivity extends AppCompatActivity {
         progressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE);
         rvCounselors.setVisibility(isLoading ? View.GONE : View.VISIBLE);
         tvEmptyState.setVisibility(View.GONE);
+    }
+
+    private void loadCounselorRatings(List<Counselor> counselors) {
+        for (Counselor counselor : counselors) {
+            feedbackRepository.getFeedbackForCounselor(counselor.getCounselorId(), new FirestoreCallback<List<FeedbackForm>>() {
+                @Override
+                public void onSuccess(List<FeedbackForm> result) {
+                    int count = 0;
+                    int total = 0;
+                    if (result != null) {
+                        for (FeedbackForm feedback : result) {
+                            if (feedback != null && !feedback.isCounselorFeedback() && feedback.getRating() > 0) {
+                                count++;
+                                total += feedback.getRating();
+                            }
+                        }
+                    }
+
+                    counselor.setRatingCount(count);
+                    counselor.setAverageRating(count == 0 ? 0 : total / (double) count);
+                    counselorAdapter.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onFailure(Exception e) {
+                    // Ratings are supplemental; counselor browsing should still work.
+                }
+            });
+        }
     }
 }

@@ -15,13 +15,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.seproj.R;
 import com.example.seproj.model.AppointmentSlot;
+import com.example.seproj.model.Counselor;
+import com.example.seproj.model.FeedbackForm;
 import com.example.seproj.repository.AppointmentSlotRepository;
+import com.example.seproj.repository.CounselorRepository;
+import com.example.seproj.repository.FeedbackRepository;
 import com.example.seproj.service.BookingService;
+import com.example.seproj.ui.common.AiInsightActivity;
 import com.example.seproj.ui.common.AppointmentAdapter;
+import com.example.seproj.ui.common.BottomTaskbar;
 import com.example.seproj.utils.FirestoreCallback;
+import com.example.seproj.ui.student.FeedbackFormActivity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Displays all appointments for a student and allows cancellation.
@@ -34,13 +45,21 @@ public class StudentAppointmentsActivity extends AppCompatActivity {
 
     private TextView tvAppointmentsTitle;
     private TextView tvEmptyAppointments;
-    private RecyclerView rvAppointments;
+//    private RecyclerView rvAppointments;
     private ProgressBar progressBar;
     private Button btnBack;
     private Button btnHome;
-    private AppointmentAdapter appointmentAdapter;
+//    private AppointmentAdapter appointmentAdapter;
     private AppointmentSlotRepository slotRepository;
     private BookingService bookingService;
+
+    private RecyclerView rvUpcomingAppointments;
+    private RecyclerView rvPastAppointments;
+
+    private AppointmentAdapter upcomingAdapter;
+    private AppointmentAdapter pastAdapter;
+    private CounselorRepository counselorRepository;
+    private FeedbackRepository feedbackRepository;
 
     private String studentId;
     private String studentName;
@@ -52,22 +71,27 @@ public class StudentAppointmentsActivity extends AppCompatActivity {
         btnBack = findViewById(R.id.btnBack);
         btnHome = findViewById(R.id.btnHome);
         tvAppointmentsTitle = findViewById(R.id.tvAppointmentsTitle);
+        rvUpcomingAppointments = findViewById(R.id.rvUpcomingAppointments);
+        rvPastAppointments = findViewById(R.id.rvPastAppointments);
         tvEmptyAppointments = findViewById(R.id.tvEmptyAppointments);
-        rvAppointments = findViewById(R.id.rvAppointments);
+//        rvAppointments = findViewById(R.id.rvAppointments);
         progressBar = findViewById(R.id.progressAppointments);
 
         studentId = getIntent().getStringExtra("studentId");
         studentName = getIntent().getStringExtra("studentName");
+        BottomTaskbar.attachStudent(this, studentId, studentName);
 
         if (studentName != null && !studentName.trim().isEmpty()) {
             tvAppointmentsTitle.setText(studentName + "'s Appointments");
         }
 
         slotRepository = new AppointmentSlotRepository();
+        counselorRepository = new CounselorRepository();
+        feedbackRepository = new FeedbackRepository();
         bookingService = new BookingService(this);
 
         setupRecyclerView();
-        loadAppointments();
+//        loadAppointments();
 
         btnBack.setOnClickListener(v -> finish());
 
@@ -78,12 +102,67 @@ public class StudentAppointmentsActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
+
+
     }
 
     private void setupRecyclerView() {
-        appointmentAdapter = new AppointmentAdapter(this::showCancelConfirmationDialog, true);
-        rvAppointments.setLayoutManager(new LinearLayoutManager(this));
-        rvAppointments.setAdapter(appointmentAdapter);
+        upcomingAdapter = new AppointmentAdapter(
+                this::showCancelConfirmationDialog,
+                slot -> openFeedbackForm(slot),
+                null,
+                this::openAiInsight,
+                true,
+                false
+        );
+
+        pastAdapter = new AppointmentAdapter(
+                null,
+                slot -> openFeedbackForm(slot),
+                null,
+                this::openAiInsight,
+                false,
+                false
+        );
+
+
+        rvUpcomingAppointments.setLayoutManager(new LinearLayoutManager(this));
+        rvUpcomingAppointments.setAdapter(upcomingAdapter);
+
+        rvPastAppointments.setLayoutManager(new LinearLayoutManager(this));
+        rvPastAppointments.setAdapter(pastAdapter);
+    }
+
+
+
+    private void openFeedbackForm(AppointmentSlot slot) {
+        Intent intent = new Intent(StudentAppointmentsActivity.this, FeedbackFormActivity.class);
+        intent.putExtra("slotId", slot.getSlotId());
+        intent.putExtra("studentId", studentId);
+        intent.putExtra("counselorId", slot.getCounselorId());
+        intent.putExtra("isCounselorFeedback", false);
+        intent.putExtra("studentName", studentName);
+        intent.putExtra("slotStartTimeMillis", slot.getStartTimeMillis());
+        intent.putExtra("slotEndTimeMillis", slot.getEndTimeMillis());
+        startActivity(intent);
+    }
+
+    private void openAiInsight(AppointmentSlot slot) {
+        Intent intent = new Intent(StudentAppointmentsActivity.this, AiInsightActivity.class);
+        intent.putExtra("slotId", slot.getSlotId());
+        intent.putExtra("sourceRole", "student");
+        intent.putExtra("studentId", studentId);
+        intent.putExtra("studentName", studentName);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (slotRepository != null && upcomingAdapter != null && pastAdapter != null) {
+            loadAppointments();
+        }
     }
 
     private void loadAppointments() {
@@ -95,34 +174,21 @@ public class StudentAppointmentsActivity extends AppCompatActivity {
                 showLoading(false);
 
                 if (result == null || result.isEmpty()) {
-                    rvAppointments.setVisibility(View.GONE);
+                    rvUpcomingAppointments.setVisibility(View.GONE);
+                    rvPastAppointments.setVisibility(View.GONE);
                     tvEmptyAppointments.setVisibility(View.VISIBLE);
                     tvEmptyAppointments.setText("No appointments found.");
                     return;
                 }
 
-                List<AppointmentSlot> bookedAppointments = new ArrayList<>();
-                for (AppointmentSlot slot : result) {
-                    if (slot != null && AppointmentSlot.STATUS_BOOKED.equals(slot.getStatus())) {
-                        bookedAppointments.add(slot);
-                    }
-                }
-
-                if (bookedAppointments.isEmpty()) {
-                    rvAppointments.setVisibility(View.GONE);
-                    tvEmptyAppointments.setVisibility(View.VISIBLE);
-                    tvEmptyAppointments.setText("No active booked appointments found.");
-                } else {
-                    tvEmptyAppointments.setVisibility(View.GONE);
-                    rvAppointments.setVisibility(View.VISIBLE);
-                    appointmentAdapter.setAppointmentList(bookedAppointments);
-                }
+                hydrateStudentFeedbackFlags(result);
             }
 
             @Override
             public void onFailure(Exception e) {
                 showLoading(false);
-                rvAppointments.setVisibility(View.GONE);
+                rvUpcomingAppointments.setVisibility(View.GONE);
+                rvPastAppointments.setVisibility(View.GONE);
                 tvEmptyAppointments.setVisibility(View.VISIBLE);
                 tvEmptyAppointments.setText("Failed to load appointments.");
                 Toast.makeText(StudentAppointmentsActivity.this,
@@ -131,6 +197,116 @@ public class StudentAppointmentsActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void hydrateStudentFeedbackFlags(List<AppointmentSlot> appointments) {
+        feedbackRepository.getStudentFeedbackForStudent(studentId, new FirestoreCallback<List<FeedbackForm>>() {
+            @Override
+            public void onSuccess(List<FeedbackForm> feedbackForms) {
+                Set<String> feedbackSlotIds = new HashSet<>();
+                if (feedbackForms != null) {
+                    for (FeedbackForm feedback : feedbackForms) {
+                        if (feedback != null && feedback.getSlotId() != null) {
+                            feedbackSlotIds.add(feedback.getSlotId());
+                        }
+                    }
+                }
+
+                for (AppointmentSlot slot : appointments) {
+                    if (slot != null && feedbackSlotIds.contains(slot.getSlotId())) {
+                        slot.setStudentFeedbackSubmitted(true);
+                    }
+                }
+
+                renderAppointments(appointments);
+                hydrateCounselorNames(appointments);
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                renderAppointments(appointments);
+                hydrateCounselorNames(appointments);
+            }
+        });
+    }
+
+    private void renderAppointments(List<AppointmentSlot> appointments) {
+        long now = System.currentTimeMillis();
+
+        List<AppointmentSlot> upcomingAppointments = new ArrayList<>();
+        List<AppointmentSlot> pastAppointments = new ArrayList<>();
+
+        for (AppointmentSlot slot : appointments) {
+            if (slot == null) continue;
+
+            boolean isPast = slot.getEndTimeMillis() < now;
+
+            if (isPast) {
+                if (!"no_show".equalsIgnoreCase(slot.getStatus())) {
+                    slot.setStatus("attended");
+                }
+                pastAppointments.add(slot);
+            } else if (AppointmentSlot.STATUS_BOOKED.equals(slot.getStatus())) {
+                upcomingAppointments.add(slot);
+            }
+        }
+
+        upcomingAdapter.setAppointmentList(upcomingAppointments);
+        pastAdapter.setAppointmentList(pastAppointments);
+
+        rvUpcomingAppointments.setVisibility(
+                upcomingAppointments.isEmpty() ? View.GONE : View.VISIBLE
+        );
+
+        rvPastAppointments.setVisibility(
+                pastAppointments.isEmpty() ? View.GONE : View.VISIBLE
+        );
+
+        if (upcomingAppointments.isEmpty() && pastAppointments.isEmpty()) {
+            tvEmptyAppointments.setVisibility(View.VISIBLE);
+            tvEmptyAppointments.setText("No appointment history found.");
+        } else {
+            tvEmptyAppointments.setVisibility(View.GONE);
+        }
+    }
+
+    private void hydrateCounselorNames(List<AppointmentSlot> appointments) {
+        Map<String, String> nameCache = new HashMap<>();
+
+        for (AppointmentSlot slot : appointments) {
+            if (slot == null || slot.getCounselorId() == null || slot.getCounselorId().trim().isEmpty()) {
+                continue;
+            }
+
+            String counselorId = slot.getCounselorId();
+            if (nameCache.containsKey(counselorId)) {
+                slot.setCounselorName(nameCache.get(counselorId));
+                renderAppointments(appointments);
+                continue;
+            }
+
+            counselorRepository.getCounselorById(counselorId, new FirestoreCallback<Counselor>() {
+                @Override
+                public void onSuccess(Counselor result) {
+                    if (result != null && result.getName() != null && !result.getName().trim().isEmpty()) {
+                        nameCache.put(counselorId, result.getName().trim());
+                        for (AppointmentSlot appointment : appointments) {
+                            if (appointment != null && counselorId.equals(appointment.getCounselorId())) {
+                                appointment.setCounselorName(result.getName().trim());
+                            }
+                        }
+                        renderAppointments(appointments);
+                    }
+                }
+
+                @Override
+                public void onFailure(Exception e) {
+                    // Counselor names improve display only; appointments remain usable without them.
+                }
+            });
+        }
+    }
+
+
 
     private void showCancelConfirmationDialog(AppointmentSlot slot) {
         new AlertDialog.Builder(this)
@@ -163,7 +339,12 @@ public class StudentAppointmentsActivity extends AppCompatActivity {
 
     private void showLoading(boolean loading) {
         progressBar.setVisibility(loading ? View.VISIBLE : View.GONE);
-        rvAppointments.setVisibility(loading ? View.GONE : View.VISIBLE);
-        tvEmptyAppointments.setVisibility(View.GONE);
+
+        rvUpcomingAppointments.setVisibility(loading ? View.GONE : View.VISIBLE);
+        rvPastAppointments.setVisibility(loading ? View.GONE : View.VISIBLE);
+
+        if (tvEmptyAppointments != null) {
+            tvEmptyAppointments.setVisibility(View.GONE);
+        }
     }
 }

@@ -2,15 +2,19 @@ package com.example.seproj.ui.student;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.seproj.R;
+import com.example.seproj.ui.common.AiChatbotActivity;
+import com.example.seproj.ui.common.BottomTaskbar;
 import com.example.seproj.ui.common.LoginActivity;
 import com.example.seproj.ui.common.NotificationsActivity;
 import com.example.seproj.ui.student.CounselorListActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 /**
  * Student home screen for the counseling clinic app.
@@ -34,6 +38,7 @@ public class StudentHomeActivity extends AppCompatActivity {
     private Button btnMyAppointments;
     private Button btnLogout;
     private Button btnStudentNotifications;
+    private FloatingActionButton fabAiChatbot;
 
     private String studentId;
     private String studentName;
@@ -49,8 +54,11 @@ public class StudentHomeActivity extends AppCompatActivity {
         btnMyAppointments = findViewById(R.id.btnMyAppointments);
         btnLogout = findViewById(R.id.btnStudentLogout);
         btnStudentNotifications = findViewById(R.id.btnStudentNotifications);
+        fabAiChatbot = findViewById(R.id.fabAiChatbot);
         studentId = getIntent().getStringExtra("studentId");
         studentName = getIntent().getStringExtra("studentName");
+        BottomTaskbar.attachStudent(this, studentId, studentName);
+        fabAiChatbot.setVisibility(View.GONE);
 
         if (studentName != null && !studentName.trim().isEmpty()) {
             tvWelcomeStudent.setText("Welcome, " + studentName);
@@ -91,6 +99,13 @@ public class StudentHomeActivity extends AppCompatActivity {
             intent.putExtra("recipientId", studentId);
             intent.putExtra("recipientRole", "student");
             intent.putExtra("displayName", studentName);
+            startActivity(intent);
+        });
+
+        fabAiChatbot.setOnClickListener(v -> {
+            Intent intent = new Intent(StudentHomeActivity.this, AiChatbotActivity.class);
+            intent.putExtra("studentId", studentId);
+            intent.putExtra("studentName", studentName);
             startActivity(intent);
         });
     }

@@ -17,6 +17,7 @@ import com.example.seproj.R;
 import com.example.seproj.model.AppointmentSlot;
 import com.example.seproj.repository.AppointmentSlotRepository;
 import com.example.seproj.service.BookingService;
+import com.example.seproj.ui.common.BottomTaskbar;
 import com.example.seproj.ui.common.SlotAdapter;
 import com.example.seproj.utils.FirestoreCallback;
 
@@ -65,6 +66,7 @@ public class AvailableSlotsActivity extends AppCompatActivity {
         studentName = getIntent().getStringExtra("studentName");
         counselorId = getIntent().getStringExtra("counselorId");
         counselorName = getIntent().getStringExtra("counselorName");
+        BottomTaskbar.attachStudent(this, studentId, studentName);
 
         if (counselorName != null && !counselorName.trim().isEmpty()) {
             tvTitle.setText("Available Slots - " + counselorName);
@@ -87,6 +89,8 @@ public class AvailableSlotsActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
+
+
     }
 
     private void setupRecyclerView() {
@@ -109,10 +113,25 @@ public class AvailableSlotsActivity extends AppCompatActivity {
                             tvEmpty.setVisibility(View.VISIBLE);
                             tvEmpty.setText("No slots available.");
                         } else {
+                        List<AppointmentSlot> futureSlots = new ArrayList<>();
+                        long now = System.currentTimeMillis();
+
+                        for (AppointmentSlot slot : result) {
+                            if (slot != null && slot.getStartTimeMillis() > now) {
+                                futureSlots.add(slot);
+                            }
+                        }
+
+                        if (futureSlots.isEmpty()) {
+                            rvSlots.setVisibility(View.GONE);
+                            tvEmpty.setVisibility(View.VISIBLE);
+                            tvEmpty.setText("No future slots available.");
+                        } else {
                             tvEmpty.setVisibility(View.GONE);
                             rvSlots.setVisibility(View.VISIBLE);
-                            slotAdapter.updateSlots(result);
+                            slotAdapter.updateSlots(futureSlots);
                         }
+                    }
                     }
 
                     @Override
@@ -138,24 +157,18 @@ public class AvailableSlotsActivity extends AppCompatActivity {
     }
 
     private void bookSelectedSlot(AppointmentSlot slot) {
-        showLoading(true);
-
-        bookingService.bookSlot(studentId, slot.getSlotId(), new BookingService.BookingCallback() {
-            @Override
-            public void onSuccess(String message) {
-                showLoading(false);
-                Toast.makeText(AvailableSlotsActivity.this, message, Toast.LENGTH_LONG).show();
-                loadSlots(); // refresh list so booked slot disappears
-            }
-
-            @Override
-            public void onFailure(String errorMessage) {
-                showLoading(false);
-                Toast.makeText(AvailableSlotsActivity.this, errorMessage, Toast.LENGTH_LONG).show();
-                loadSlots(); // reload in case slot status changed
-            }
-        });
+        Intent intent = new Intent(AvailableSlotsActivity.this, IntakeFormActivity.class);
+        intent.putExtra("slotId", slot.getSlotId());
+        intent.putExtra("studentId", studentId);
+        intent.putExtra("studentName", studentName);
+        intent.putExtra("counselorId", counselorId);
+        intent.putExtra("counselorName", counselorName);
+        intent.putExtra("slotStartTimeMillis", slot.getStartTimeMillis());
+        intent.putExtra("slotEndTimeMillis", slot.getEndTimeMillis());
+        startActivity(intent);
     }
+
+
 
     private void showLoading(boolean loading) {
         progressBar.setVisibility(loading ? View.VISIBLE : View.GONE);

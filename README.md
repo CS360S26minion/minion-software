@@ -568,6 +568,28 @@ The final development phase of the Counseling Appointment System took place from
 
 ## Final Deliverable Sprint Review
 
+### Sprint Review — April 18, 2026
+| Field | Info |
+|-------|------|
+| Date | April 18, 2026 |
+| Time | 11:00 PM |
+| Duration | ~40 minutes |
+| Meeting With | TA |
+
+**Attendees:** Iyan Aamir Aslam, Dayyan Ali Akhtar, Qayyum Ahmed, Shaheer Ahmad, Eman Nabeel  
+
+**Discussion:**  
+The team met with the TA to review progress on the final deliverable and discuss improvements made after Part 3. The session focused on refining the system and ensuring readiness for final submission.
+
+Key points discussed included clearer documentation across all layers. The team added detailed JavaDocs to models, services, and UI components to improve readability and maintainability.Feedback was provided on improving UI consistency and alignment with the Figma prototype. The team refined layouts, improved navigation flow, and ensured a more intuitive user experience. The team highlighted fixes in booking flow, slot handling, and Firestore data issues (e.g., null values and mapping errors).
+
+- **AI Feature Expansion:**  
+  The team discussed plans to extend the system with AI-based features, including:
+  - A chatbot for student guidance  
+  - AI-generated summaries and insights for admins  
+
+The TA encouraged the team to continue refining these features and ensure they are well-integrated into the overall system.
+
 ## Final Deliverable Updated Backlog
 
 ## Final Deliverable Updated UI Mockups

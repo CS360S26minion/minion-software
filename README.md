@@ -607,17 +607,11 @@ The TA encouraged the team to continue refining these features and ensure they a
 
 <img width="144" height="675" alt="image" src="https://github.com/user-attachments/assets/b2f24f82-3d34-49ce-a790-667e942f889c" />
 
-## Final Deliverable Updated UML Diagram
-
-<p align="center">
-  <img src="UI/uml.png" width="900" alt="UML Class Diagram">
-</p>
-
 ## Final Deliverable Updated UI Mockups
-## UI Flow Mockup 
+### UI Flow Mockup 
 <img width="3000" height="2200" alt="image" src="https://github.com/user-attachments/assets/4eb7b9b8-cc48-4957-b87a-2675e3669165" />
 
-## UI Mockup Board 
+### UI Mockup Board 
 <img width="1270" height="2220" alt="image" src="https://github.com/user-attachments/assets/2a305c81-4d76-442b-92b9-b3483016e1af" />
 
 ## Extra Mile: User Study & AI-Powered Features
@@ -627,3 +621,9 @@ As an extra mile effort, we conducted a user study with LUMS students to better 
 | **AI Insight** | **AI Counselor** |
 | :---: | :---: |
 | <img src="UI/AI_insight.png" width="180"> | <img src="UI/AI_bot.png" width="180"> |
+
+## Final Deliverable Updated UML Diagram
+
+<p align="center">
+  <img src="UI/uml.png" width="900" alt="UML Class Diagram">
+</p>

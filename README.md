@@ -607,6 +607,11 @@ The TA encouraged the team to continue refining these features and ensure they a
 
 <img width="144" height="675" alt="image" src="https://github.com/user-attachments/assets/b2f24f82-3d34-49ce-a790-667e942f889c" />
 
+## Final Deliverable Updated UML Diagram
+
+<p align="center">
+  <img src="UI/uml.png" width="900" alt="UML Class Diagram">
+</p>
 
 ## Final Deliverable Updated UI Mockups
 ## UI Flow Mockup 

@@ -17,6 +17,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * RecyclerView adapter for selectable appointment time slots in a grid.
+ * Used by slot browsing or calendar-like screens to present compact time choices.
+ *
+ * Outstanding issues:
+ * - Disabled and selected state behavior can be extended for richer calendars.
+ */
 public class TimeSlotGridAdapter extends RecyclerView.Adapter<TimeSlotGridAdapter.SlotViewHolder> {
 
     private List<AppointmentSlot> slots = new ArrayList<>();
@@ -87,3 +94,6 @@ public class TimeSlotGridAdapter extends RecyclerView.Adapter<TimeSlotGridAdapte
         }
     }
 }
+
+
+

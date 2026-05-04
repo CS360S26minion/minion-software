@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,7 +36,8 @@ public class SignupActivity extends AppCompatActivity {
 
     private EditText etName;
     private EditText etEmail;
-    private AutoCompleteTextView actvRole;
+    private EditText etPassword;
+    private Spinner spinnerRole;
     private EditText etSpecialization;
     private EditText etBio;
     private Button btnSignup;
@@ -50,7 +53,8 @@ public class SignupActivity extends AppCompatActivity {
 
         etName = findViewById(R.id.etSignupName);
         etEmail = findViewById(R.id.etSignupEmail);
-        actvRole = findViewById(R.id.actvSignupRole);
+        etPassword = findViewById(R.id.etSignupPassword);
+        spinnerRole = findViewById(R.id.spinnerSignupRole);
         etSpecialization = findViewById(R.id.etCounselorSpecialization);
         etBio = findViewById(R.id.etCounselorBio);
         btnSignup = findViewById(R.id.btnSignup);
@@ -61,7 +65,15 @@ public class SignupActivity extends AppCompatActivity {
 
         setupRoleDropdown();
 
-        actvRole.setOnItemClickListener((parent, view, position, id) -> updateCounselorFieldsVisibility());
+        spinnerRole.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                updateCounselorFieldsVisibility();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
 
         btnSignup.setOnClickListener(v -> attemptSignup());
 
@@ -72,16 +84,19 @@ public class SignupActivity extends AppCompatActivity {
 
     private void setupRoleDropdown() {
         String[] roles = {"student", "counselor"};
+
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
                 this,
-                android.R.layout.simple_dropdown_item_1line,
+                android.R.layout.simple_spinner_item,
                 roles
         );
-        actvRole.setAdapter(adapter);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerRole.setAdapter(adapter);
     }
 
     private void updateCounselorFieldsVisibility() {
-        String role = actvRole.getText().toString().trim().toLowerCase();
+        String role = spinnerRole.getSelectedItem().toString().trim().toLowerCase();
         if ("counselor".equals(role)) {
             etSpecialization.setVisibility(View.VISIBLE);
             etBio.setVisibility(View.VISIBLE);
@@ -94,7 +109,7 @@ public class SignupActivity extends AppCompatActivity {
     private void attemptSignup() {
         String name = etName.getText().toString().trim();
         String email = etEmail.getText().toString().trim();
-        String role = actvRole.getText().toString().trim().toLowerCase();
+        String role = spinnerRole.getSelectedItem().toString().trim().toLowerCase();
         String specialization = etSpecialization.getText().toString().trim();
         String bio = etBio.getText().toString().trim();
 
@@ -110,27 +125,36 @@ public class SignupActivity extends AppCompatActivity {
             return;
         }
 
-        if (TextUtils.isEmpty(role)) {
-            actvRole.setError("Role is required");
-            actvRole.requestFocus();
+
+        String password = etPassword.getText().toString().trim();
+
+        if (TextUtils.isEmpty(password)) {
+            etPassword.setError("Password is required");
+            etPassword.requestFocus();
+            return;
+        }
+
+        if (password.length() < 5) {
+            etPassword.setError("Password must be at least 5 characters");
+            etPassword.requestFocus();
             return;
         }
 
         if ("student".equals(role)) {
-            signupStudent(name, email);
+            signupStudent(name, email, password);
         } else if ("counselor".equals(role)) {
             if (TextUtils.isEmpty(specialization)) {
                 etSpecialization.setError("Specialization is required");
                 etSpecialization.requestFocus();
                 return;
             }
-            signupCounselor(name, email, specialization, bio);
+            signupCounselor(name, email, specialization, bio, password);
         } else {
             Toast.makeText(this, "Please select a valid role", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void signupStudent(String name, String email) {
+    private void signupStudent(String name, String email, String password) {
         studentRepository.getStudentByEmail(email, new FirestoreCallback<Student>() {
             @Override
             public void onSuccess(Student existingStudent) {
@@ -143,6 +167,7 @@ public class SignupActivity extends AppCompatActivity {
 
                 String studentId = UUID.randomUUID().toString();
                 Student student = new Student(studentId, name, email, null);
+                student.setPassword(password);
 
                 studentRepository.addStudent(student, new FirestoreCallback<Void>() {
                     @Override
@@ -171,7 +196,7 @@ public class SignupActivity extends AppCompatActivity {
         });
     }
 
-    private void signupCounselor(String name, String email, String specialization, String bio) {
+    private void signupCounselor(String name, String email, String specialization, String bio, String password) {
         counselorRepository.getCounselorByEmail(email, new FirestoreCallback<Counselor>() {
             @Override
             public void onSuccess(Counselor existingCounselor) {
@@ -191,6 +216,7 @@ public class SignupActivity extends AppCompatActivity {
                         bio,
                         true
                 );
+                counselor.setPassword(password);
 
                 counselorRepository.addCounselor(counselor, new FirestoreCallback<Void>() {
                     @Override

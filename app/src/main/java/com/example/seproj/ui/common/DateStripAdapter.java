@@ -17,6 +17,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * RecyclerView adapter for horizontal date selection in calendar-style slot browsing.
+ * Displays available dates and reports selection changes to the parent screen.
+ *
+ * Outstanding issues:
+ * - Locale-specific week labels can be improved later.
+ */
 public class DateStripAdapter extends RecyclerView.Adapter<DateStripAdapter.DateViewHolder> {
 
     private List<LocalDate> dates = new ArrayList<>();
@@ -97,3 +104,6 @@ public class DateStripAdapter extends RecyclerView.Adapter<DateStripAdapter.Date
         }
     }
 }
+
+
+

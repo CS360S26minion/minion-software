@@ -64,6 +64,8 @@ public class CounselorAdapter extends RecyclerView.Adapter<CounselorAdapter.Coun
         private final TextView tvCounselorSpecialization;
         private final TextView tvCounselorBio;
         private final TextView tvCounselorStatus;
+        private final TextView tvCounselorRating;
+        private final TextView tvCounselorAvatar;
 
         public CounselorViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -71,10 +73,14 @@ public class CounselorAdapter extends RecyclerView.Adapter<CounselorAdapter.Coun
             tvCounselorSpecialization = itemView.findViewById(R.id.tvCounselorSpecialization);
             tvCounselorBio = itemView.findViewById(R.id.tvCounselorBio);
             tvCounselorStatus = itemView.findViewById(R.id.tvCounselorStatus);
+            tvCounselorRating = itemView.findViewById(R.id.tvCounselorRating);
+            tvCounselorAvatar = itemView.findViewById(R.id.tvCounselorAvatar);
         }
 
         public void bind(Counselor counselor, OnCounselorClickListener listener) {
             tvCounselorName.setText(counselor.getName());
+            String name = counselor.getName() == null ? "" : counselor.getName().trim();
+            tvCounselorAvatar.setText(name.isEmpty() ? "G" : name.substring(0, 1).toUpperCase());
             tvCounselorSpecialization.setText("Specialization: " + counselor.getSpecialization());
 
             String bio = counselor.getBio();
@@ -85,6 +91,16 @@ public class CounselorAdapter extends RecyclerView.Adapter<CounselorAdapter.Coun
             }
 
             tvCounselorStatus.setText(counselor.isActive() ? "Available Counselor" : "Inactive");
+            if (counselor.getRatingCount() > 0) {
+                tvCounselorRating.setText(String.format(
+                        java.util.Locale.getDefault(),
+                        "Rating: %.1f/5 (%d)",
+                        counselor.getAverageRating(),
+                        counselor.getRatingCount()
+                ));
+            } else {
+                tvCounselorRating.setText("Rating: Not rated yet");
+            }
 
             itemView.setOnClickListener(v -> {
                 if (listener != null) {

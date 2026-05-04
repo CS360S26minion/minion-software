@@ -9,6 +9,13 @@ import androidx.core.content.ContextCompat;
 import com.example.seproj.R;
 import com.google.android.material.chip.Chip;
 
+/**
+ * Custom view for rendering appointment and feedback status labels as chips.
+ * Provides consistent color treatment for booked, attended, cancelled, and related states.
+ *
+ * Outstanding issues:
+ * - Status colors are fixed in code and could move to style resources.
+ */
 public class StatusChipView extends Chip {
 
     public StatusChipView(@NonNull Context context) {
@@ -52,3 +59,6 @@ public class StatusChipView extends Chip {
         animate().scaleX(1f).scaleY(1f).alpha(1f).setDuration(180).start();
     }
 }
+
+
+

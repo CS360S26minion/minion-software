@@ -12,6 +12,13 @@ import androidx.appcompat.widget.AppCompatImageView;
 
 import com.example.seproj.R;
 
+/**
+ * Small custom view that renders initials or simple avatar styling for list items.
+ * Keeps repeated avatar presentation consistent across counselor and feedback rows.
+ *
+ * Outstanding issues:
+ * - Remote profile images are not supported yet.
+ */
 public class AvatarView extends AppCompatImageView {
     private String initials = "";
     private int bgColor = Color.GRAY;
@@ -83,3 +90,6 @@ public class AvatarView extends AppCompatImageView {
         }
     }
 }
+
+
+

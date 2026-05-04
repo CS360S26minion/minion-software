@@ -10,6 +10,13 @@ import androidx.annotation.Nullable;
 
 import com.example.seproj.R;
 
+/**
+ * Custom view for displaying rating stars in a compact, reusable form.
+ * Used in counselor listings and feedback-related UI where rating visualization is needed.
+ *
+ * Outstanding issues:
+ * - It is display-oriented and does not replace interactive RatingBar input.
+ */
 public class StarRatingView extends LinearLayout {
 
     private int rating = 0;
@@ -90,3 +97,6 @@ public class StarRatingView extends LinearLayout {
             .start();
     }
 }
+
+
+

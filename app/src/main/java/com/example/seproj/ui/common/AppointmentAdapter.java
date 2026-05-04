@@ -19,34 +19,50 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * RecyclerView adapter for displaying appointments.
- * Can be used in both student and counselor views.
+ * RecyclerView adapter for appointment cards across student and counselor screens.
+ * Configures action buttons for cancellation, feedback, intake forms, no-shows, and AI insight access.
  *
  * Outstanding issues:
- * - Counselor/student names can be added later through lookup joins.
- * - Reschedule action can be added later.
+ * - The adapter carries role-specific branching and could be split if card behavior grows.
  */
 public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.AppointmentViewHolder> {
 
     public interface OnAppointmentActionListener {
-        void onCancelClick(AppointmentSlot slot);
+        void onAction(AppointmentSlot slot);
     }
 
-    private final List<AppointmentSlot> appointmentList;
-    private final OnAppointmentActionListener listener;
+    private final List<AppointmentSlot> appointmentList = new ArrayList<>();
+    private final boolean isCounselorMode;
+    private final OnAppointmentActionListener cancelListener;
+    private final OnAppointmentActionListener feedbackListener;
     private final boolean showCancelButton;
 
-    public AppointmentAdapter(OnAppointmentActionListener listener, boolean showCancelButton) {
-        this.appointmentList = new ArrayList<>();
-        this.listener = listener;
+    private final OnAppointmentActionListener intakeListener;
+    private final OnAppointmentActionListener aiInsightListener;
+    
+
+
+    public AppointmentAdapter(OnAppointmentActionListener cancelListener,
+                              OnAppointmentActionListener feedbackListener,
+                              OnAppointmentActionListener intakeListener,
+                              OnAppointmentActionListener aiInsightListener,
+                              boolean showCancelButton,
+                              boolean isCounselorMode) {
+        this.cancelListener = cancelListener;
+        this.feedbackListener = feedbackListener;
+        this.intakeListener = intakeListener;
+        this.aiInsightListener = aiInsightListener;
         this.showCancelButton = showCancelButton;
+        this.isCounselorMode = isCounselorMode;
     }
 
     public void setAppointmentList(List<AppointmentSlot> appointments) {
         appointmentList.clear();
+
         if (appointments != null) {
             appointmentList.addAll(appointments);
         }
+
         notifyDataSetChanged();
     }
 
@@ -61,8 +77,11 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
     @Override
     public void onBindViewHolder(@NonNull AppointmentViewHolder holder, int position) {
         AppointmentSlot slot = appointmentList.get(position);
-        holder.bind(slot, listener, showCancelButton);
+//        holder.bind(slot, cancelListener, feedbackListener, showCancelButton);
+        holder.bind(slot, cancelListener, feedbackListener, intakeListener, aiInsightListener, showCancelButton, isCounselorMode);
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -70,22 +89,38 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
     }
 
     static class AppointmentViewHolder extends RecyclerView.ViewHolder {
+
         private final TextView tvAppointmentDate;
         private final TextView tvAppointmentTime;
+        private final TextView tvAppointmentCounselor;
         private final TextView tvAppointmentStatus;
         private final Button btnCancelAppointment;
+        private final Button btnFeedback;
 
-        public AppointmentViewHolder(@NonNull View itemView) {
+        private final Button btnViewIntake;
+        private final Button btnAiInsight;
+
+        AppointmentViewHolder(@NonNull View itemView) {
             super(itemView);
+
             tvAppointmentDate = itemView.findViewById(R.id.tvAppointmentDate);
             tvAppointmentTime = itemView.findViewById(R.id.tvAppointmentTime);
+            tvAppointmentCounselor = itemView.findViewById(R.id.tvAppointmentCounselor);
             tvAppointmentStatus = itemView.findViewById(R.id.tvAppointmentStatus);
             btnCancelAppointment = itemView.findViewById(R.id.btnCancelAppointment);
+            btnFeedback = itemView.findViewById(R.id.btnFeedback);
+            btnViewIntake = itemView.findViewById(R.id.btnViewIntake);
+            btnAiInsight = itemView.findViewById(R.id.btnAiInsight);
         }
 
-        public void bind(AppointmentSlot slot,
-                         OnAppointmentActionListener listener,
-                         boolean showCancelButton) {
+        void bind(AppointmentSlot slot,
+                  OnAppointmentActionListener cancelListener,
+                  OnAppointmentActionListener feedbackListener,
+                  OnAppointmentActionListener intakeListener,
+                  OnAppointmentActionListener aiInsightListener,
+                  boolean showCancelButton,
+                  boolean isCounselorMode) {
+
             SimpleDateFormat dateFormat =
                     new SimpleDateFormat("EEE, dd MMM yyyy", Locale.getDefault());
             SimpleDateFormat timeFormat =
@@ -97,19 +132,110 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
 
             tvAppointmentDate.setText(dateText);
             tvAppointmentTime.setText(startText + " - " + endText);
-            tvAppointmentStatus.setText("Status: " + slot.getStatus());
+            String counselorName = slot.getCounselorName();
+            if (!isCounselorMode && counselorName != null && !counselorName.trim().isEmpty()) {
+                tvAppointmentCounselor.setVisibility(View.VISIBLE);
+                tvAppointmentCounselor.setText("Counselor: " + counselorName.trim());
+            } else {
+                tvAppointmentCounselor.setVisibility(View.GONE);
+            }
+            long now = System.currentTimeMillis();
+            String displayStatus;
 
-            if (showCancelButton) {
-                btnCancelAppointment.setVisibility(View.VISIBLE);
-                btnCancelAppointment.setOnClickListener(v -> {
-                    if (listener != null) {
-                        listener.onCancelClick(slot);
+            if (slot.getEndTimeMillis() < now) {
+                if (slot.isNoShow()) {
+                    displayStatus = "No-show";
+                } else {
+                    displayStatus = "Attended";
+                }
+            } else {
+                displayStatus = slot.getStatus();
+            }
+
+            tvAppointmentStatus.setText("Status: " + displayStatus);
+
+
+            if (showCancelButton && cancelListener != null) {
+
+                if (isCounselorMode) {
+                    boolean hasStarted = slot.getStartTimeMillis() <= now;
+                    boolean isBooked = AppointmentSlot.STATUS_BOOKED.equals(slot.getStatus());
+                    boolean isAvailableFuture = AppointmentSlot.STATUS_AVAILABLE.equals(slot.getStatus())
+                            && slot.getStartTimeMillis() > now;
+
+                    if (isBooked || isAvailableFuture) {
+                        btnCancelAppointment.setVisibility(View.VISIBLE);
+                        if (isAvailableFuture) {
+                            btnCancelAppointment.setText("Cancel Slot");
+                        } else {
+                            btnCancelAppointment.setText(hasStarted ? "Mark No-Show" : "Cancel Appointment");
+                        }
+                        btnCancelAppointment.setOnClickListener(v -> cancelListener.onAction(slot));
+                    } else {
+                        btnCancelAppointment.setVisibility(View.GONE);
+                        btnCancelAppointment.setOnClickListener(null);
                     }
-                });
+
+                } else {
+                    btnCancelAppointment.setVisibility(View.VISIBLE);
+                    btnCancelAppointment.setText("Cancel");
+                    btnCancelAppointment.setOnClickListener(v -> cancelListener.onAction(slot));
+                }
+
             } else {
                 btnCancelAppointment.setVisibility(View.GONE);
                 btnCancelAppointment.setOnClickListener(null);
             }
+
+            if (feedbackListener != null) {
+                boolean hasPassed = slot.getEndTimeMillis() < System.currentTimeMillis();
+                boolean isNoShow = AppointmentSlot.STATUS_NO_SHOW.equals(slot.getStatus());
+
+                boolean alreadySubmitted = isCounselorMode
+                        ? slot.isCounselorFeedbackSubmitted()
+                        : slot.isStudentFeedbackSubmitted();
+
+                boolean shouldShowFeedback;
+
+                if (isCounselorMode) {
+                    shouldShowFeedback = hasPassed && !alreadySubmitted;
+                } else {
+                    shouldShowFeedback = hasPassed && !alreadySubmitted && !isNoShow;
+                }
+
+                btnFeedback.setVisibility(shouldShowFeedback ? View.VISIBLE : View.GONE);
+
+                if (shouldShowFeedback) {
+                    btnFeedback.setOnClickListener(v -> feedbackListener.onAction(slot));
+                } else {
+                    btnFeedback.setOnClickListener(null);
+                }
+
+            } else {
+                btnFeedback.setVisibility(View.GONE);
+                btnFeedback.setOnClickListener(null);
+            }
+            if (isCounselorMode && intakeListener != null) {
+                btnViewIntake.setVisibility(View.VISIBLE);
+                btnViewIntake.setOnClickListener(v -> intakeListener.onAction(slot));
+            } else {
+                btnViewIntake.setVisibility(View.GONE);
+                btnViewIntake.setOnClickListener(null);
+            }
+
+            boolean shouldShowAiInsight = aiInsightListener != null
+                    && slot.getEndTimeMillis() < now
+                    && !AppointmentSlot.STATUS_NO_SHOW.equals(slot.getStatus());
+
+            btnAiInsight.setVisibility(shouldShowAiInsight ? View.VISIBLE : View.GONE);
+            if (shouldShowAiInsight) {
+                btnAiInsight.setOnClickListener(v -> aiInsightListener.onAction(slot));
+            } else {
+                btnAiInsight.setOnClickListener(null);
+            }
         }
     }
 }
+
+
+

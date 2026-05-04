@@ -271,6 +271,19 @@ The team met with the TA to discuss the product backlog, the requirements for th
 
 **Discussion:**  
 The team met with the TA to present and discuss the CRC tables and the UI gallery. The TA reviewed the class responsibilities, interactions, and the overall UI flow shown in the gallery, and provided feedback on the consistency between the backlog, CRC tables, and prototype screens.## Meeting Minutes
+### Meeting 4 — April 18, 2026
+
+| Field | Info |
+|-------|------|
+| Date | April 18, 2026 |
+| Time | 12:00 PM – 12:45 PM |
+| Duration | 45 minutes |
+| Meeting With | TA |
+
+**Attendees:** Iyan Aamir Aslam, Dayyan Ali Akhtar, Qayyum Ahmed, Shaheer Ahmad, Eman Nabeel
+
+**Discussion:**  
+The team met with the TA to present the Phase 3 deliverables, showcasing the core functionalities integrated into the map application. Each team member walked the TA through their individual contributions, demonstrating the features they had implemented along with the user stories they had completed. The TA reviewed the overall progress, provided constructive feedback, and offered guidance on how to plan and structure the work for Phase 4.
 
 # Part 3
 ## Part 3 Sprint Planning

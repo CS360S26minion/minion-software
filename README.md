@@ -609,7 +609,10 @@ The TA encouraged the team to continue refining these features and ensure they a
 
 ## Extra Mile: User Study & AI-Powered Features
 
-As an extra mile effort, we conducted a user study with LUMS students to better understand their needs and pain points when using a counseling appointment system. Students expressed a strong desire for more intelligent, personalized support beyond basic scheduling — particularly around mental health guidance and session continuity. In response, we implemented two AI-powered features: **AI Insight**, which generates post-session summaries highlighting key themes and counselor observations to help students reflect on their progress, and **AI Counselor**, a private, empathetic chat interface where students can express how they are feeling between sessions and receive supportive, real-time responses. These features were directly informed by student feedback and represent our commitment to building a system that genuinely serves the well-being of its users, not just their logistical needs.
+As an extra mile effort, we conducted a user study with LUMS students to better understand their needs and pain points when using a counseling appointment system. Students expressed a strong desire for more intelligent, personalized support beyond basic scheduling — particularly around mental health guidance and session continuity. In response, we implemented two Gemini based AI-powered features: **AI Insight**, which generates post-session summaries highlighting key themes and counselor observations to help students reflect on their progress, and **AI Counselor**, a private, empathetic chat interface where students can express how they are feeling between sessions and receive supportive, real-time responses. These features were directly informed by student feedback and represent our commitment to building a system that genuinely serves the well-being of its users, not just their logistical needs.
 
-![AI-Insights](UI/AI_insight.png)
-![AI-Bot](UI/AI_bot.png)
+```markdown
+| **AI Insight** | **AI Counselor** |
+| :---: | :---: |
+| <img src="UI/AI_insight.png" width="180"> | <img src="UI/AI_bot.png" width="180"> |
+```

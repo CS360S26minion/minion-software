@@ -457,6 +457,115 @@ These additions aim to directly address user pain points and further improve usa
 # Final Deliverable
 ## Final Deliverable Sprint Planning
 
+### 📅 Sprint Overview
+
+The final development phase of the Counseling Appointment System took place from **April 7 to May 3, 2026**. This phase was divided into three structured sprints. The primary focus was to first incorporate TA feedback and stabilize the system, followed by completing all remaining user stories and extending the platform with AI-powered features.
+
+### 📆 Week 1 — TA Feedback Integration & System Stabilization (April 7 – April 13)
+
+**Goal:** Address feedback from Sprint Review 2 and improve system quality before introducing new features.
+
+#### 🔧 Key Improvements
+- Added detailed **JavaDocs** across models, services, and UI layers  
+- Improved **UI consistency** to better match Figma designs  
+- Made sprint planning and documentation more **explicit and structured**  
+- Fixed bugs in:
+  - Booking and rescheduling logic  
+  - Slot availability and visibility  
+  - Firestore data mapping and null handling  
+- Improved overall **code readability and maintainability**
+
+#### 👥 Task Distribution
+
+| Team Member | Planned Task |
+|-------------|-------------|
+| Shaheer | Fix booking/rescheduling bugs and slot state inconsistencies |
+| Dayyan | Improve counselor list and slot UI |
+| Qayyum | Refine counselor dashboard and availability UI |
+| Ayan | Debug notification triggers and email confirmations |
+| Eman | Fix reminder workers and scheduling reliability |
+| All | Add JavaDocs and refactor codebase |
+
+
+### 📆 Week 2 — Progressive Features Implementation (April 14 – April 24)
+
+**Goal:** Implement remaining backlog features and connect support services with core booking data.
+
+#### 🎯 User Stories Covered
+
+- **US11:** Mark No-Show  
+- **US12:** View Appointment History  
+- **US13:** Submit Intake Form  
+- **US14:** Submit Session Feedback  
+- **US15:** View Admin Analytics  
+- **US16:** Manage Counselor Profiles  
+
+#### 👥 Task Distribution
+
+| Team Member | Planned Task | User Story |
+|-------------|-------------|------------|
+| Shaheer | Implement no-show tracking and slot updates | US11 |
+| Dayyan | Build appointment history view for students | US12 |
+| Qayyum | Implement intake form and link to bookings | US13 |
+| Ayan | Implement feedback form with Firestore storage | US14 |
+| Eman | Build admin analytics dashboard | US15 |
+| Eman | Implement counselor profile management | US16 |
+
+#### 🧠 Key Enhancements
+- Feedback and intake forms now store:
+  - Student information  
+  - Counselor information  
+  - Appointment slot metadata  
+- Enabled **cross-role access**:
+  - Counselors can view intake forms  
+  - Admins can view feedback data  
+- Structured data for **analytics and reporting**
+
+### 📆 Week 3 — AI Features & Final Integration (April 25 – May 3)
+
+**Goal:** Extend the system with intelligent features and prepare for final demonstration.
+
+#### 🚀 New Features
+
+##### 🤖 AI Chatbot
+- Provides students with guidance and answers to general counseling-related queries  
+- Enhances user engagement and accessibility  
+
+##### 📊 AI-Based Insights
+- Generates summaries from:
+  - Intake forms  
+  - Feedback forms  
+- Provides admins with:
+  - Trends and analytics  
+  - Counselor performance insights  
+
+#### 👥 Task Distribution
+
+| Team Member | Planned Task |
+|-------------|-------------|
+| Shaheer | Build UI for chatbot and insights display |
+| Dayyan | Integrate AI insights with feedback and intake data | 
+| Qayyum | Connect counselor data to analytics system |
+| Ayan | Ensure notification flows remain stable |
+| Eman | Implement AI logic and aggregation pipelines |
+
+
+### 📊 Final Sprint Summary
+
+| Sprint | Focus Area | Outcome |
+|-------|-----------|--------|
+| Week 1 | Stabilization & TA Feedback | Clean and bug-free system |
+| Week 2 | Feature Completion | All remaining user stories implemented |
+| Week 3 | AI & Integration | Advanced features and final polish |
+
+
+### 🎯 Final Outcomes
+
+- Completed all **core and progressive user stories (US01–US16)**  
+- Integrated **end-to-end data flow** across students, counselors, and admins  
+- Added **AI-powered features** for enhanced user experience  
+- Delivered a **stable, scalable, and production-ready system**
+
 ## Final Deliverable Sprint Review
 
 ## Final Deliverable Updated Backlog

@@ -16,8 +16,6 @@ import static androidx.test.espresso.matcher.ViewMatchers.isRoot;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static org.hamcrest.CoreMatchers.anyOf;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -77,7 +75,7 @@ public class StudentAppointmentsActivityTest {
         onView(isRoot()).perform(TestUtils.waitFor(3000));
 
         onView(withId(R.id.tvAppointmentsTitle)).check(matches(isDisplayed()));
-        onView(withId(R.id.rvAppointments)).check(matches(isDisplayed()));
+        onView(withId(R.id.rvUpcomingAppointments)).check(matches(isDisplayed()));
     }
 
     private String uniqueId(String prefix) {

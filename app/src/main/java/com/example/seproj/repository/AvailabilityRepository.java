@@ -20,7 +20,17 @@ public class AvailabilityRepository {
     public AvailabilityRepository() {
         this.db = FirebaseFirestore.getInstance();
     }
+    /**
 
+     * Adds a new availability record for a counselor.
+
+     *
+
+     * @param availability the {@link Availability} object to be stored
+
+     * @param callback     callback invoked on success or failure
+
+     */
     public void addAvailability(Availability availability, final FirestoreCallback<Void> callback) {
         db.collection(COLLECTION_NAME)
                 .document(availability.getAvailabilityId())
@@ -28,7 +38,17 @@ public class AvailabilityRepository {
                 .addOnSuccessListener(unused -> callback.onSuccess(null))
                 .addOnFailureListener(callback::onFailure);
     }
+    /**
 
+     * Updates an existing availability record.
+
+     *
+
+     * @param availability the updated {@link Availability} object
+
+     * @param callback     callback invoked on success or failure
+
+     */
     public void updateAvailability(Availability availability, final FirestoreCallback<Void> callback) {
         db.collection(COLLECTION_NAME)
                 .document(availability.getAvailabilityId())
@@ -36,7 +56,23 @@ public class AvailabilityRepository {
                 .addOnSuccessListener(unused -> callback.onSuccess(null))
                 .addOnFailureListener(callback::onFailure);
     }
+    /**
 
+     * Retrieves all availability records for a specific counselor.
+
+     *
+
+     * <p>This method is typically used to generate appointment slots
+
+     * based on recurring availability patterns.</p>
+
+     *
+
+     * @param counselorId the unique ID of the counselor
+
+     * @param callback    callback returning a list of availability records
+
+     */
     public void getAvailabilityForCounselor(String counselorId,
                                             final FirestoreCallback<List<Availability>> callback) {
         db.collection(COLLECTION_NAME)
@@ -54,7 +90,17 @@ public class AvailabilityRepository {
                 })
                 .addOnFailureListener(callback::onFailure);
     }
+    /**
 
+     * Deletes an availability record from Firestore.
+
+     *
+
+     * @param availabilityId the unique ID of the availability record
+
+     * @param callback       callback invoked on success or failure
+
+     */
     public void deleteAvailability(String availabilityId, final FirestoreCallback<Void> callback) {
         db.collection(COLLECTION_NAME)
                 .document(availabilityId)

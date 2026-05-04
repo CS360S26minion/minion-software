@@ -5,6 +5,7 @@ import com.example.seproj.model.Counselor;
 import com.example.seproj.utils.FirestoreCallback;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.android.gms.tasks.Task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,17 @@ public class CounselorRepository {
     public CounselorRepository() {
         this.db = FirebaseFirestore.getInstance();
     }
+    /**
 
+     * Adds a new counselor to Firestore.
+
+     *
+
+     * @param counselor the {@link Counselor} object to be added
+
+     * @param callback  callback invoked on success or failure
+
+     */
     public void addCounselor(Counselor counselor, final FirestoreCallback<Void> callback) {
         db.collection(COLLECTION_NAME)
                 .document(counselor.getCounselorId())
@@ -29,7 +40,21 @@ public class CounselorRepository {
                 .addOnSuccessListener(unused -> callback.onSuccess(null))
                 .addOnFailureListener(callback::onFailure);
     }
+    /**
 
+     * Retrieves all active counselors.
+
+     *
+
+     * <p>Only counselors with {@code active = true} are returned.
+
+     * This method is used for student-facing counselor discovery screens.</p>
+
+     *
+
+     * @param callback callback returning a list of active counselors
+
+     */
     public void getAllActiveCounselors(final FirestoreCallback<List<Counselor>> callback) {
         db.collection(COLLECTION_NAME)
                 .whereEqualTo("active", true)
@@ -46,7 +71,17 @@ public class CounselorRepository {
                 })
                 .addOnFailureListener(callback::onFailure);
     }
+    /**
 
+     * Retrieves a counselor by their unique ID.
+
+     *
+
+     * @param counselorId the unique identifier of the counselor
+
+     * @param callback    callback returning the counselor or null if not found
+
+     */
     public void getCounselorById(String counselorId, final FirestoreCallback<Counselor> callback) {
         db.collection(COLLECTION_NAME)
                 .document(counselorId)
@@ -61,7 +96,21 @@ public class CounselorRepository {
                 })
                 .addOnFailureListener(callback::onFailure);
     }
+    /**
 
+     * Retrieves a counselor by their email address.
+
+     *
+
+     * <p>This method is typically used for login or authentication flows.</p>
+
+     *
+
+     * @param email    the counselor's email address
+
+     * @param callback callback returning the counselor or null if not found
+
+     */
     public void getCounselorByEmail(String email, final FirestoreCallback<Counselor> callback) {
         db.collection(COLLECTION_NAME)
                 .whereEqualTo("email", email)
@@ -77,5 +126,23 @@ public class CounselorRepository {
                     }
                 })
                 .addOnFailureListener(callback::onFailure);
+    }
+    /**
+
+     * Updates the bio/description of a counselor.
+
+     *
+
+     * @param counselorId the unique ID of the counselor
+
+     * @param bio         the updated biography text
+
+     * @return a {@link Task} representing the asynchronous update operation
+
+     */
+    public Task<Void> updateCounselorBio(String counselorId, String bio) {
+        return db.collection(COLLECTION_NAME)
+                .document(counselorId)
+                .update("bio", bio);
     }
 }

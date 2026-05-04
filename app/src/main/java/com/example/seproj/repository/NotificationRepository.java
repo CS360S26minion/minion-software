@@ -6,6 +6,7 @@ import com.example.seproj.utils.FirestoreCallback;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.WriteBatch;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,17 @@ public class NotificationRepository {
     public NotificationRepository() {
         this.db = FirebaseFirestore.getInstance();
     }
+    /**
 
+     * Adds a new notification to Firestore.
+
+     *
+
+     * @param notification the {@link AppNotification} object to be stored
+
+     * @param callback     callback invoked on success or failure
+
+     */
     public void addNotification(AppNotification notification, final FirestoreCallback<Void> callback) {
         db.collection(COLLECTION_NAME)
                 .document(notification.getNotificationId())
@@ -30,7 +41,23 @@ public class NotificationRepository {
                 .addOnSuccessListener(unused -> callback.onSuccess(null))
                 .addOnFailureListener(callback::onFailure);
     }
+    /**
 
+     * Retrieves all notifications for a specific recipient.
+
+     *
+
+     * <p>Notifications are ordered by creation time in descending order,
+
+     * so the most recent notifications appear first.</p>
+
+     *
+
+     * @param recipientId the unique ID of the notification recipient
+
+     * @param callback    callback returning a list of notifications
+
+     */
     public void getNotificationsForRecipient(String recipientId,
                                              final FirestoreCallback<List<AppNotification>> callback) {
         db.collection(COLLECTION_NAME)
@@ -49,12 +76,55 @@ public class NotificationRepository {
                 })
                 .addOnFailureListener(callback::onFailure);
     }
+    /**
 
+     * Marks a specific notification as read.
+
+     *
+
+     * @param notificationId the unique ID of the notification
+
+     * @param callback       callback invoked on success or failure
+
+     */
     public void markAsRead(String notificationId, final FirestoreCallback<Void> callback) {
         db.collection(COLLECTION_NAME)
                 .document(notificationId)
                 .update("read", true)
                 .addOnSuccessListener(unused -> callback.onSuccess(null))
+                .addOnFailureListener(callback::onFailure);
+    }
+    /**
+
+     * Deletes all notifications for a specific recipient.
+
+     *
+
+     * <p>This operation uses a Firestore batch to efficiently remove
+
+     * multiple documents in a single transaction.</p>
+
+     *
+
+     * @param recipientId the unique ID of the notification recipient
+
+     * @param callback    callback invoked on success or failure
+
+     */
+    public void clearNotificationsForRecipient(String recipientId,
+                                               final FirestoreCallback<Void> callback) {
+        db.collection(COLLECTION_NAME)
+                .whereEqualTo("recipientId", recipientId)
+                .get()
+                .addOnSuccessListener(snapshot -> {
+                    WriteBatch batch = db.batch();
+                    for (DocumentSnapshot doc : snapshot.getDocuments()) {
+                        batch.delete(doc.getReference());
+                    }
+                    batch.commit()
+                            .addOnSuccessListener(unused -> callback.onSuccess(null))
+                            .addOnFailureListener(callback::onFailure);
+                })
                 .addOnFailureListener(callback::onFailure);
     }
 }
